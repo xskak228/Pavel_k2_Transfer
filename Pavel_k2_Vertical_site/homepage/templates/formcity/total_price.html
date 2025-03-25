@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вертикаль - Цена</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header, footer {
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-buttons a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 18px;
+        }
+        form {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            max-width: 500px;
+            margin: 40px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        form label {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        form input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        form button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            cursor: pointer;
+        }
+        .price {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Вертикаль</h1>
+        <div class="nav-buttons">
+            <a href="#">Telegram</a>
+            <a href="#">WhatsApp</a>
+        </div>
+    </header>
+
+    <h2>Тест Форма Цена</h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <label>
+            <input type="checkbox" name="rules" required>
+            Ознакомился с правилами перевозки
+        </label>
+        <label>
+            <input type="checkbox" name="privacy" required>
+            Ознакомился с политикой конфиденциальности и даю согласие на обработку персональных данных
+        </label>
+        <h3>Приблизительная цена</h3>
+        <div class="price">123 руб.</div>
+        <button type="submit">Отправить заявку</button>
+    </form>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Политика компании</a>
+            <a href="#">Политика конфиденциальности</a>
+        </div>
+    </footer>
+</body>
+</html>

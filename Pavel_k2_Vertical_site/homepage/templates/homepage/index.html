@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вертикаль - Главная</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header, footer {
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-buttons a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 18px;
+        }
+        .slogan {
+            margin: 40px 0;
+            font-size: 28px;
+            font-weight: bold;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        form {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            max-width: 500px;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        form input {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        form input::placeholder {
+            color: #999;
+            font-size: 16px;
+        }
+        form button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        .quick-routes, .reviews {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0;
+        }
+        .route, .review {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 180px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .stars {
+            color: gold;
+            font-size: 20px;
+            margin-top: 5px;
+        }
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        /* Стили для ограниченного по размеру списка автодополнения */
+        .ui-autocomplete {
+            max-height: 200px; /* Ограничиваем высоту */
+            overflow-y: auto;  /* Добавляем вертикальную прокрутку */
+            overflow-x: hidden;
+        }
+    </style>
+    {% load static %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+</head>
+<body>
+    <header>
+        <h1>Вертикаль</h1>
+        <div class="nav-buttons">
+            <a href="#">Telegram</a>
+            <a href="#">WhatsApp</a>
+        </div>
+    </header>
+
+    <div class="slogan">Мы помогаем вам быстро, удобно и безопасно добираться из одного города в другой. Путешествуйте с комфортом и доверием!</div>
+
+    <h2>Тест Форма</h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="text" id="from_location" name="from_location" required placeholder="Откуда">
+        <input type="text" id="to_location" name="to_location" required placeholder="Куда">
+        <input type="number" id="num_people" name="num_people" min="1" max="8" required placeholder="Кол-во человек">
+        <button type="submit">Далее</button>
+    </form>
+
+    <div class="quick-routes">
+        <div class="route">Москва - Питер</div>
+        <div class="route">Москва - Казань</div>
+        <div class="route">Москва - Сочи</div>
+        <div class="route">Москва - Екатеринбург</div>
+        <div class="route">Москва - Новосибирск</div>
+    </div>
+
+    <div class="reviews">
+        <div class="review">
+            <p>Отличный сервис! Пользуюсь уже не в первый раз, всегда вовремя и удобно. Водители профессионалы, сервис на высоте.</p>
+            <div class="stars">★★★★★</div>
+        </div>
+        <div class="review">
+            <p>Очень удобно и быстро. Давно искал надежный способ добраться до нужного города, и этот сервис полностью оправдал мои ожидания.</p>
+            <div class="stars">★★★★☆</div>
+        </div>
+        <div class="review">
+            <p>Рекомендую всем! Дешево, надежно и комфортно. Не думал, что поездки могут быть такими удобными. Огромное спасибо!</p>
+            <div class="stars">★★★★★</div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Политика компании</a>
+            <a href="#">Политика конфиденциальности</a>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function(){
+            $.getJSON("{% static 'cities.json' %}", function(data) {
+                $("#from_location, #to_location").autocomplete({
+                    source: data,
+                    max: 10, // Ограничиваем число предложений до 10
+                    minLength: 1 // Количество символов для начала автодополнения
+                });
+            });
+        });
+    </script>
+</body>
+</html>

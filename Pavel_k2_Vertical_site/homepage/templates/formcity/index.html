@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вертикаль - Бронирование</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header, footer {
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-buttons a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 18px;
+        }
+        form {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            max-width: 700px;
+            margin: 40px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        form input, form button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        form .full-width {
+            grid-column: span 2;
+        }
+        form button {
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .checkbox-group {
+            grid-column: span 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+        }
+        .checkbox-group input {
+            margin-right: 10px;
+        }
+        .ui-autocomplete {      /* Нужно для отображения, ПЕРЕНЕСТИ */
+            max-height: 200px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body>
+    {% load static %}
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        function formatPhone(input) {
+            let value = input.value.replace(/\D/g, '');
+
+            if (value[0] === '8') {
+                value = '7' + value.substring(1);
+            }
+
+            if (value.length > 11) value = value.substring(0, 11);
+
+            let formattedValue = value;
+
+            if (value.length > 1) {
+                formattedValue = '+7' + value.substring(1);
+            }
+
+            if (formattedValue.length > 2) {
+                formattedValue = formattedValue.replace(/^(\+7)(\d{3})(\d{3})(\d{2})(\d{2})$/, '$1($2)$3-$4-$5');
+            }
+
+            input.value = formattedValue;
+        }
+    </script>
+    <script>
+        $(document).ready(function(){
+            $.getJSON("{% static 'cities.json' %}", function(data) {
+                $("#from_location, #to_location").autocomplete({
+                    source: data,
+                    max: 10, // Ограничиваем число предложений до 10
+                    minLength: 1 // Количество символов для начала автодополнения
+                });
+            });
+        });
+    </script>
+{#<script>#}
+{#    document.addEventListener("DOMContentLoaded", function() {#}
+{#        let tomorrow = new Date();#}
+{#        tomorrow.setDate(tomorrow.getDate() + 1);#}
+{##}
+{#        let year = tomorrow.getFullYear();#}
+{#        let month = String(tomorrow.getMonth() + 1).padStart(2, '0');#}
+{#        let day = String(tomorrow.getDate()).padStart(2, '0');#}
+{##}
+{#        let formattedDate = `${year}-${month}-${day}`;#}
+{##}
+{#        document.getElementById('date').setAttribute('min', formattedDate);#}
+{#    });#}
+{#</script>#}
+    <header>
+        <h1>Вертикаль</h1>
+        <div class="nav-buttons">
+            <a href="#">Telegram</a>
+            <a href="#">WhatsApp</a>
+        </div>
+    </header>
+
+    <h2>Бронирование поездки</h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="text" name="name" required placeholder="Ваше имя">
+        <input type="tel" name="phone" required oninput="formatPhone(this)" placeholder="Ваш номер">
+        <input type="date" name="date" id="date" min="{{ tomorrow }}" required>
+        <input type="time" name="time" required>
+        <input type="text" id="from_location" name="from_location" value="{{ from_location }}" required placeholder="Откуда">
+        <input type="text" id="to_location" name="to_location" value="{{ to_location }}" required placeholder="Куда">
+        <input type="number" id="num_people " name="num_people " min="1" max="8" value="{{ num_people }}" required placeholder="Кол-во человек">
+        <input type="number" name="luggage" min="0" max="16" required placeholder="Количество багажа">
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="child_seat" value="Да"> Детское кресло</label>
+            <label><input type="checkbox" name="pet" value="Да"> Животное</label>
+        </div>
+        <button type="submit" class="full-width">Далее</button>
+    </form>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Политика компании</a>
+            <a href="#">Политика конфиденциальности</a>
+        </div>
+    </footer>
+</body>
+</html>

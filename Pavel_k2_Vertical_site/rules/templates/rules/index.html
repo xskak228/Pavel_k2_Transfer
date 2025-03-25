@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вертикаль - Главная</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header, footer {
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-buttons a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 18px;
+        }
+        .slogan {
+            margin: 40px 0;
+            font-size: 28px;
+            font-weight: bold;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        form {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            max-width: 500px;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        form label {
+            display: none;
+        }
+        form input {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        form input::placeholder {
+            color: #999;
+            font-size: 16px;
+        }
+        form button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        .quick-routes, .reviews {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0;
+        }
+        .route, .review {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 180px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .stars {
+            color: gold;
+            font-size: 20px;
+            margin-top: 5px;
+        }
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Вертикаль</h1>
+        <div class="nav-buttons">
+            <a href="#">Telegram</a>
+            <a href="#">WhatsApp</a>
+        </div>
+    </header>
+
+    <h1>Политика конфиденциальности</h1>
+    <h4>--</h4>
+    <h1>Полиитика обработки персональных данных</h1>
+    <h4>--</h4>
+    <h1>Правила перевозки</h1>
+    <h4>--</h4>
+
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Политика компании</a>
+            <a href="#">Политика конфиденциальности</a>
+        </div>
+    </footer>
+</body>
+</html>
