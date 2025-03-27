@@ -79,21 +79,21 @@
         {% csrf_token %}
         <label>
             <input type="checkbox" name="rules" required>
-            Ознакомился с правилами перевозки
+            Ознакомился с <a href="/rules">правилами перевозки</a>
         </label>
         <label>
             <input type="checkbox" name="privacy" required>
-            Ознакомился с политикой конфиденциальности и даю согласие на обработку персональных данных
+            Ознакомился с <a href="/rules">политикой конфиденциальности</a> и даю согласие на <a href="/rules">обработку персональных данных</a>
         </label>
         <h3>Приблизительная цена</h3>
-        <div class="price">123 руб.</div>
+        <div class="price">{{ price }} руб.</div>
         <button type="submit">Отправить заявку</button>
     </form>
 
     <footer>
         <div class="footer-links">
-            <a href="#">Политика компании</a>
-            <a href="#">Политика конфиденциальности</a>
+            <a href="/rules">Политика компании</a>
+            <a href="/rules">Политика конфиденциальности</a>
         </div>
     </footer>
 </body>

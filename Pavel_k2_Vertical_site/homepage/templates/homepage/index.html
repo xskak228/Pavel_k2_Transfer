@@ -124,14 +124,19 @@
         <input type="text" id="to_location" name="to_location" required placeholder="Куда">
         <input type="number" id="num_people" name="num_people" min="1" max="8" required placeholder="Кол-во человек">
         <button type="submit">Далее</button>
+        {% if error_message %}
+            <div style="color: red; font-weight: bold;">
+                {{ error_message }}
+            </div>
+        {% endif %}
     </form>
 
     <div class="quick-routes">
-        <div class="route">Москва - Питер</div>
-        <div class="route">Москва - Казань</div>
-        <div class="route">Москва - Сочи</div>
-        <div class="route">Москва - Екатеринбург</div>
-        <div class="route">Москва - Новосибирск</div>
+        <div class="route"><a href="form/Москва_Санкт-Петербург">Москва - Питер</a></div>
+        <div class="route"><a href="form/Москва_Казань">Москва - Казань</a></div>
+        <div class="route"><a href="form/Москва_Сочи">Москва - Сочи</a></div>
+        <div class="route"><a href="form/Москва_Екатеринбург">Москва - Екатеринбург</a></div>
+        <div class="route"><a href="form/Москва_Новосибирск">Москва - Новосибирск</a></div>
     </div>
 
     <div class="reviews">

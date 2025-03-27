@@ -1,9 +1,9 @@
-from django.urls import path
+from django.urls import path, re_path
 
 from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("form/", views.form, name="form"),
-    path("total_price/", views.total_price, name="total_price"),
+    re_path(r'^form/(?P<city_from>[\w-]+)?_(?P<city_to>[\w-]+)?/$', views.form, name='form'),
+    path("total_price/<int:booking_id>/", views.total_price, name="total_price"),
 ]
