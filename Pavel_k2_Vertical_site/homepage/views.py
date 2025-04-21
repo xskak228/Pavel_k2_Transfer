@@ -70,7 +70,7 @@ def index(request):
             request.session["to_location"] = to_location
             request.session["num_people"] = num_people
 
-            return redirect(f"/form/{from_location}_{to_location}")  # Переход на вторую страницу
+            return redirect(f"/form/{from_location}---{to_location}")  # Переход на вторую страницу
     return render(request, template, context={"error_message": error_message})
 
 def form(request, city_from, city_to):

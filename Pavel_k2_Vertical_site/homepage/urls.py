@@ -4,6 +4,6 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
-    re_path(r'^form/(?P<city_from>[\w-]+)?_(?P<city_to>[\w-]+)?/$', views.form, name='form'),
+    re_path(r'^form/(?P<city_from>[\w-]+)?---(?P<city_to>[\w-]+)?/$', views.form, name='form'),
     path("total_price/<int:booking_id>/", views.total_price, name="total_price"),
 ]
