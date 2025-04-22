@@ -11,17 +11,23 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.template import loader
 
-
+#https://openrouteservice.org/
 api_key = "5b3ce3597851110001cf6248aa5159d26bb141e28af00c07d47a0ad4"
 client = openrouteservice.Client(key=api_key)
 
+#function to get coord in city
 def get_coordinates(city):
+    print(city)
+    city = city.replace("_", " ")
+    print(city)
     result = client.pelias_search(city)
+
     if result and 'features' in result and result['features']:
         coords = result['features'][0]['geometry']['coordinates']
         return [coords[0], coords[1]]  # [долгота, широта]
     return None
 
+#function to get kilomiters from cities
 def get_kilomiters(city_from, city_to):
     coords1 = get_coordinates(city_from)
     coords2 = get_coordinates(city_to)
@@ -33,6 +39,7 @@ def get_kilomiters(city_from, city_to):
     else:
         return None
 
+#function to get price from prices form
 def get_price(km, num_people, luggage, shild_seat, pet):
     pricing = Pricing.objects.first()
     price = 0
@@ -46,6 +53,7 @@ def get_price(km, num_people, luggage, shild_seat, pet):
     return price
 
 
+#MainPage - Form, tariffs, routes
 def index(request):
     template = "homepage/index.html"
     error_message = None
@@ -73,6 +81,7 @@ def index(request):
             return redirect(f"/form/{from_location}---{to_location}")  # Переход на вторую страницу
     return render(request, template, context={"error_message": error_message})
 
+#Form - edit form rout
 def form(request, city_from, city_to):
     # Загружаем список городов
     cities_path = os.path.join(settings.BASE_DIR, "static", "cities.json")
@@ -156,7 +165,7 @@ def form(request, city_from, city_to):
 
     return render(request, template, context)
 
-
+#FormPrice - see total price and send final application
 def total_price(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id)
 

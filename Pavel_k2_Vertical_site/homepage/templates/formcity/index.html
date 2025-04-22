@@ -43,7 +43,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 15px;
         }
-        form input, form button {
+        form input, form button, select {
             width: 100%;
             padding: 15px;
             font-size: 18px;
@@ -139,6 +139,13 @@
         <input type="text" id="to_location" name="to_location" value="{{ to_location }}" required placeholder="Куда">
         <input type="number" id="num_people" name="num_people" min="1" max="8" value="{{ num_people }}" required placeholder="Кол-во человек">
         <input type="number" name="luggage" min="0" max="16" required placeholder="Количество багажа">
+        <select required placeholder="Тариф">
+          <option>Эконом</option>
+          <option>Стандарт</option>
+          <option>Комфорт</option>
+          <option>Минивэн</option>
+          <option>Бизнес</option>
+        </select>
         <div class="checkbox-group">
             <label><input type="checkbox" name="child_seat" value="Да"> Детское кресло</label>
             <label><input type="checkbox" name="pet" value="Да"> Животное</label>
