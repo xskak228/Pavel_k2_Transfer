@@ -3,6 +3,6 @@ from django.http import HttpResponse
 from django.template import loader
 
 
-def index(request):
+def rules(request):
     template = "rules/index.html"
     return render(request, template)

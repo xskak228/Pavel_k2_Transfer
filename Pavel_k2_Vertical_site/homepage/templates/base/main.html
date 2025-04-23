@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: black;
+            color: white;
+            margin-left: auto;
+            margin-right: auto;
+            width: 1100px;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header, footer  {
+            background-color: black;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-buttons {
+            width: 500px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        .nav-buttons a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 18px;
+        }
+        header {
+            margin-top: 40px;
+        }
+        header img {
+            width: 70px;
+        }
+        .phone-number {
+            display: flex;
+            align-items: center;
+        }
+        #LogoHeader {
+            margin: -50px 0 0 -20px;
+            width: 350px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Вертикаль - Главная</title>
+
+    {% load static %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+</head>
+<body>
+    <header>
+    <a href="{% url 'index' %}"><img id="LogoHeader" src="static\image\logo\Logo.svg" alt="Вертикаль"></a>
+    <div class="nav-buttons">
+        <a class="phone-number" href="#"><h3>+7(123)456-78-90</h3></a>
+        <a href="#"><img class="header-buttons" id="icon-telegram" src="static\image\icon-telegram.png" alt="Telegram"></a>
+        <a href="#"><img class="header-buttons" id="icon-whatsapp" src="static\image\icon-whatsapp.png" alt="WhatsApp"></a>
+    </div>
+    </header>
+
+    {% block content %}
+    <!-- Контент по умолчанию -->
+    {% endblock %}
+
+    {% include "base/footer.html" %}
+</body>
+</html>

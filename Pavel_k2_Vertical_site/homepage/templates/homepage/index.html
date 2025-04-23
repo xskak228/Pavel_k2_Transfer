@@ -1,35 +1,8 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Вертикаль - Главная</title>
+{% extends "base/main.html" %}
+
+{% block content %}
+    {% load static %}
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        header, footer {
-            background-color: #333;
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .nav-buttons a {
-            color: white;
-            text-decoration: none;
-            margin-left: 15px;
-            font-size: 18px;
-        }
         .slogan {
             margin: 40px 0;
             font-size: 28px;
@@ -101,23 +74,22 @@
             overflow-x: hidden;
         }
     </style>
-    {% load static %}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-</head>
-<body>
-    <header>
-        <h1>Вертикаль</h1>
-        <div class="nav-buttons">
-            <a href="#">Telegram</a>
-            <a href="#">WhatsApp</a>
-        </div>
-    </header>
+
+    <script>
+        $(document).ready(function(){
+            $.getJSON("{% static 'cities.json' %}", function(data) {
+                $("#from_location, #to_location").autocomplete({
+                    source: data,
+                    max: 10, // Ограничиваем число предложений до 10
+                    minLength: 1 // Количество символов для начала автодополнения
+                });
+            });
+        });
+    </script>
 
     <div class="slogan">Мы помогаем вам быстро, удобно и безопасно добираться из одного города в другой. Путешествуйте с комфортом и доверием!</div>
 
-    <h2>Тест Форма</h2>
+    <h1>Тест Форма</h1>
     <form action="" method="POST">
         {% csrf_token %}
         <input type="text" id="from_location" name="from_location" required placeholder="Откуда">
@@ -132,11 +104,11 @@
     </form>
 
     <div class="quick-routes">
-        <div class="route"><a href="form/Москва_Санкт-Петербург">Москва - Питер</a></div>
-        <div class="route"><a href="form/Москва_Казань">Москва - Казань</a></div>
-        <div class="route"><a href="form/Москва_Сочи">Москва - Сочи</a></div>
-        <div class="route"><a href="form/Москва_Екатеринбург">Москва - Екатеринбург</a></div>
-        <div class="route"><a href="form/Москва_Новосибирск">Москва - Новосибирск</a></div>
+        <div class="route"><a href="booking/Москва---Санкт-Петербург">Москва - Питер</a></div>
+        <div class="route"><a href="booking/Москва---Казань">Москва - Казань</a></div>
+        <div class="route"><a href="booking/Москва---Сочи">Москва - Сочи</a></div>
+        <div class="route"><a href="booking/Москва---Екатеринбург">Москва - Екатеринбург</a></div>
+        <div class="route"><a href="booking/Москва---Новосибирск">Москва - Новосибирск</a></div>
     </div>
 
     <div class="reviews">
@@ -154,23 +126,4 @@
         </div>
     </div>
 
-    <footer>
-        <div class="footer-links">
-            <a href="#">Политика компании</a>
-            <a href="#">Политика конфиденциальности</a>
-        </div>
-    </footer>
-
-    <script>
-        $(document).ready(function(){
-            $.getJSON("{% static 'cities.json' %}", function(data) {
-                $("#from_location, #to_location").autocomplete({
-                    source: data,
-                    max: 10, // Ограничиваем число предложений до 10
-                    minLength: 1 // Количество символов для начала автодополнения
-                });
-            });
-        });
-    </script>
-</body>
-</html>
+{% endblock %}

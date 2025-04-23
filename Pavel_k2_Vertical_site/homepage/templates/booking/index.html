@@ -1,0 +1,103 @@
+{% extends "base/main.html" %}
+
+{% block content %}
+    {% load static %}
+
+    <style>
+
+        .nav-buttons a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 18px;
+        }
+        form {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            max-width: 700px;
+            margin: 40px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        form input, form button, select {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        form .full-width {
+            grid-column: span 2;
+        }
+        form button {
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .checkbox-group {
+            grid-column: span 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+        }
+        .checkbox-group input {
+            margin-right: 10px;
+        }
+        .ui-autocomplete {
+            max-height: 200px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        .comment-input {
+            height: 60px; /* или сколько нужно */
+        }
+    </style>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <input type="text" name="name" required placeholder="Ваше имя">
+    <input type="tel" name="phone" required oninput="formatPhone(this)" placeholder="Ваш номер">
+    <input type="date" name="date" id="date" min="{{ tomorrow }}" required>
+    <input type="time" name="time" required>
+    <input type="text" id="from_location" name="from_location" value="{{ from_location }}" required placeholder="Откуда">
+    <input type="text" id="to_location" name="to_location" value="{{ to_location }}" required placeholder="Куда">
+    <input type="number" id="num_people" name="num_people" min="1" max="8" value="{{ num_people }}" required placeholder="Кол-во человек">
+    <input type="number" name="luggage" min="0" max="16" required placeholder="Количество багажа">
+
+    <select name="tariff" class="full-width" required>
+        <option disabled selected value="">Выберите тариф</option>
+        <option>Эконом</option>
+        <option>Стандарт</option>
+        <option>Комфорт</option>
+        <option>Минивэн</option>
+        <option>Бизнес</option>
+    </select>
+
+    <input type="text" name="comment" class="full-width comment-input" placeholder="Комментарий (необязательно)">
+
+
+    <div class="checkbox-group">
+        <label><input type="checkbox" name="child_seat" value="Да"> Детское кресло</label>
+        <label><input type="checkbox" name="pet" value="Да"> Животное</label>
+    </div>
+    <button type="submit" class="full-width">Далее</button>
+
+    {% if error_message %}
+        <div style="color: red; font-weight: bold;">
+            {{ error_message }}
+        </div>
+    {% endif %}
+</form>
+
+{% endblock %}

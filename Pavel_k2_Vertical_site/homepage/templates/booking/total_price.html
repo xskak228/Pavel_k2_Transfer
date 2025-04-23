@@ -1,29 +1,9 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Вертикаль - Цена</title>
+{% extends "base/main.html" %}
+
+{% block content %}
+    {% load static %}
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        header, footer {
-            background-color: #333;
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
         .nav-buttons a {
             color: white;
             text-decoration: none;
@@ -64,15 +44,6 @@
             margin: 20px 0;
         }
     </style>
-</head>
-<body>
-    <header>
-        <h1>Вертикаль</h1>
-        <div class="nav-buttons">
-            <a href="#">Telegram</a>
-            <a href="#">WhatsApp</a>
-        </div>
-    </header>
 
     <h2>Тест Форма Цена</h2>
     <form action="" method="POST">
@@ -90,11 +61,4 @@
         <button type="submit">Отправить заявку</button>
     </form>
 
-    <footer>
-        <div class="footer-links">
-            <a href="/rules">Политика компании</a>
-            <a href="/rules">Политика конфиденциальности</a>
-        </div>
-    </footer>
-</body>
-</html>
+{% endblock %}

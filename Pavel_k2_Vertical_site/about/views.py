@@ -3,6 +3,6 @@ from django.http import HttpResponse
 from django.template import loader
 
 
-def index(request):
+def about(request):
     template = "about/index.html"
     return render(request, template)
