@@ -3,14 +3,11 @@
 {% block content %}
     {% load static %}
     <style>
-        .slogan {
-            margin: 40px 0;
-            font-size: 28px;
-            font-weight: bold;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+        a {
+            text-decoration: none;
+            color: white;
         }
+
         form {
             background: #f9f9f9;
             padding: 30px;
@@ -19,6 +16,10 @@
             max-width: 500px;
             margin: 20px auto;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .name_form {
+            color: black;
+            margin: -10px 0 20px 0;
         }
         form input, select {
             display: block;
@@ -42,17 +43,16 @@
             border-radius: 5px;
             font-size: 18px;
         }
-        .quick-routes, .reviews {
+        .reviews {
             display: flex;
             justify-content: center;
             gap: 15px;
             margin: 40px 0;
         }
         .route, .review {
-            border: 1px solid #ccc;
             padding: 20px;
             width: 180px;
-            background-color: #f9f9f9;
+            {#background-color: #f9f9f9;#}
             border-radius: 5px;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -67,12 +67,89 @@
             text-decoration: none;
             margin: 0 15px;
         }
-        /* Стили для ограниченного по размеру списка автодополнения */
-        .ui-autocomplete {
-            max-height: 200px; /* Ограничиваем высоту */
-            overflow-y: auto;  /* Добавляем вертикальную прокрутку */
-            overflow-x: hidden;
+        .bid {
+            display: flex;
+
         }
+        .slogan {
+            margin: 40px 0;
+            font-size: 28px;
+            font-weight: bold;
+            max-width: 400px;
+            margin-left: 100px;
+            margin-right: auto;
+
+            text-align: left;
+            line-height: 40px;
+            text-indent: 10px;
+        }
+        .quick-routes {
+            padding: 100px 0 0 0;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .route {
+          position: relative;
+          width: 750px;
+          height: 300px;
+          overflow: hidden;
+          display: flex;
+        }
+
+        .route a {
+            position: relative;
+            text-decoration: none;
+            color: white;
+        }
+
+        .city {
+          position: relative;
+          width: 50%;
+          height: 100%;
+          overflow: hidden;
+        }
+
+        .city img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .city-left {
+            margin-left: 5%;
+
+            border-radius: 30px 0 0 30px;
+        }
+
+        .city-right {
+            border-radius: 0 30px 30px 0;
+          clip-path: polygon(11% 0, 100% 0, 100% 100%, 11% 100%);
+          margin-left: -10%;
+
+        }
+
+        .route-title {
+            background-color: rgba(82, 82, 82, 0.82);
+            position: absolute;
+            
+            margin-top: 210px;
+            margin-left: 35px;
+            padding-top: 10px;
+            
+            width: 640px;
+            height: 50px;
+            
+            border-radius: 0 0 30px 30px;
+            
+            font-size: 25px;
+        }
+
+        .tariffs {
+            margin-top: 70px;
+        }
+
     </style>
 
     <script>
@@ -87,28 +164,126 @@
         });
     </script>
 
-    <div class="slogan">Мы помогаем вам быстро, удобно и безопасно добираться из одного города в другой. Путешествуйте с комфортом и доверием!</div>
+    <div class="bid">
+        <div class="slogan">Мы помогаем вам быстро, удобно и безопасно добираться из одного города в другой. Путешествуйте с комфортом и доверием!</div>
 
-    <h1>Тест Форма</h1>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <input type="text" id="from_location" name="from_location" required placeholder="Откуда">
-        <input type="text" id="to_location" name="to_location" required placeholder="Куда">
-        <input type="number" id="num_people" name="num_people" min="1" max="8" required placeholder="Кол-во человек">
-        <button type="submit">Далее</button>
-        {% if error_message %}
-            <div style="color: red; font-weight: bold;">
-                {{ error_message }}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="name_form">
+                <h2>Заполнить заявку</h2>
             </div>
-        {% endif %}
-    </form>
+            <label for="from_location"></label><input type="text" id="from_location" name="from_location" required placeholder="Откуда">
+            <label for="to_location"></label><input type="text" id="to_location" name="to_location" required placeholder="Куда">
+            <label for="num_people"></label><input type="number" id="num_people" name="num_people" min="1" max="8" required placeholder="Кол-во человек">
+            <button type="submit">Далее</button>
+            {% if error_message %}
+                <div style="color: red; font-weight: bold;">
+                    {{ error_message }}
+                </div>
+            {% endif %}
+        </form>
+    </div>
 
     <div class="quick-routes">
-        <div class="route"><a href="booking/Москва---Санкт-Петербург">Москва - Питер</a></div>
-        <div class="route"><a href="booking/Москва---Казань">Москва - Казань</a></div>
-        <div class="route"><a href="booking/Москва---Сочи">Москва - Сочи</a></div>
-        <div class="route"><a href="booking/Москва---Екатеринбург">Москва - Екатеринбург</a></div>
-        <div class="route"><a href="booking/Москва---Новосибирск">Москва - Новосибирск</a></div>
+        <div class="name">
+            <h1>Популярные направления</h1>
+        </div>
+
+        <div class="route_link">
+            <a class="route" href="/booking/Москва---Санкт-Петербург/">
+                <div class="city city-left">
+                    <img src="static\image\sities\moscow.jpg" alt="Москва">
+                </div>
+                <div class="city city-right">
+                    <img src="static\image\sities\piter.jpg" alt="Санкт-Петербург">
+                </div>
+                <div class="route-title">Москва - Санкт-Петербург</div>
+            </a>
+        </div>
+
+        <div class="route_link">
+            <a class="route" href="/booking/Минеральные_Воды---Сочи/">
+                <div class="city city-left">
+                    <img src="static\image\sities\minvodi.jpg" alt="Минеральные Воды">
+                </div>
+                <div class="city city-right">
+                    <img src="static\image\sities\sochi.jpg" alt="Сочи">
+                </div>
+                <div class="route-title">Минеральные Воды - Сочи</div>
+            </a>
+        </div>
+
+        <div class="route_link">
+            <a class="route" href="/booking/Краснодар---Нижний_Новгород/">
+                <div class="city city-left">
+                    <img src="static\image\sities\krasnodar.jpg" alt="Краснодар">
+                </div>
+                <div class="city city-right">
+                    <img src="static\image\sities\novgorod.jpg" alt="Нижний Новгород">
+                </div>
+                <div class="route-title">Краснодар - Нижний Новгород</div>
+           </a>
+        </div>
+
+        <div class="route_link">
+            <a class="route" href="/booking/Ставрополь---Ростов-на-Дону/">
+                <div class="city city-left">
+                    <img src="static\image\sities\stavropol.jpg" alt="Ставрополь">
+                </div>
+                <div class="city city-right">
+                    <img src="static\image\sities\rostov.jpg" alt="Ростов на Дону">
+                </div>
+                <div class="route-title">Ставрополь - Ростов на Дону</div>
+           </a>
+        </div>
+
+    </div>
+
+    <div class="tariffs">
+        <div class="name">
+            <h1>Тарифы</h1>
+        </div>
+        <div class="bd-example">
+  <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+      <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="..." class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>First slide label</h5>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="..." class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Second slide label</h5>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="..." class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Third slide label</h5>
+          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+        </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+
     </div>
 
     <div class="reviews">

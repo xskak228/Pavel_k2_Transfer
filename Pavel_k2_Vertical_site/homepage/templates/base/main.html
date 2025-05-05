@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    {% load static %}
     <style>
+        @font-face {
+            font-family: 'Montserrat';
+            src: url('/static/fonts/Montserrat-Medium.ttf') format('truetype');
+            font-weight: 500;
+            font-style: normal;
+        }
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         body {
+            font-family: 'Montserrat', Arial, sans-serif;
             background-color: black;
             color: white;
             margin-left: auto;
             margin-right: auto;
             width: 1100px;
-            font-family: Arial, sans-serif;
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -43,11 +50,13 @@
             margin-top: 40px;
         }
         header img {
-            width: 70px;
+            width: 40px;
         }
         .phone-number {
             display: flex;
             align-items: center;
+            padding-right: 60px;
+            padding-left: 60px;
         }
         #LogoHeader {
             margin: -50px 0 0 -20px;
@@ -57,7 +66,6 @@
     <meta charset="UTF-8">
     <title>Вертикаль - Главная</title>
 
-    {% load static %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
