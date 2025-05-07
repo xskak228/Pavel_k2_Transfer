@@ -1,172 +1,147 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-* {box-sizing: border-box}
-body {font-family: Verdana, sans-serif; margin:0}
-.mySlides {display: none}
-img {vertical-align: middle;}
+  <meta charset="UTF-8">
+  <title>Простая Карусель</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f8f8f8;
+    }
 
-/* Slideshow container */
-.slideshow-container {
-  max-width: 1000px;
-  position: relative;
-  margin: auto;
-}
+    .carousel {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      margin: 50px auto;
+      overflow: hidden;
+      border-radius: 10px;
+    }
 
-/* Next & previous buttons */
-.prev, .next {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  width: auto;
-  padding: 16px;
-  margin-top: -22px;
-  color: white;
-  font-weight: bold;
-  font-size: 18px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
-}
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
+      will-change: transform;
+    }
 
-/* Position the "next button" to the right */
-.next {
-  right: 0;
-  border-radius: 3px 0 0 3px;
-}
+    .carousel-item {
+      flex: 0 0 300px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      background-color: #ddd;
+      transition: transform 0.5s, opacity 0.5s;
+      border-radius: 10px;
+      position: relative;
+    }
 
-/* On hover, add a black background color with a little bit see-through */
-.prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
-}
+    .carousel-item.dimmed {
+      transform: scale(0.85);
+      opacity: 0.5;
+    }
 
-/* Caption text */
-.text {
-  color: #f2f2f2;
-  font-size: 15px;
-  padding: 8px 12px;
-  position: absolute;
-  bottom: 8px;
-  width: 100%;
-  text-align: center;
-}
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.5);
+      color: #333;
+      border: none;
+      font-size: 20px;
+      padding: 5px 10px;
+      cursor: pointer;
+      z-index: 3;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
 
-/* Number text (1/3 etc) */
-.numbertext {
-  color: #f2f2f2;
-  font-size: 12px;
-  padding: 8px 12px;
-  position: absolute;
-  top: 0;
-}
+    .carousel-button:hover {
+      background: rgba(255, 255, 255, 0.8);
+    }
 
-/* The dots/bullets/indicators */
-.dot {
-  cursor: pointer;
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
-}
+    .carousel-button.prev {
+      left: 10px;
+    }
 
-.active, .dot:hover {
-  background-color: #717171;
-}
+    .carousel-button.next {
+      right: 10px;
+    }
 
-/* Fading animation */
-.fade {
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
-  animation-name: fade;
-  animation-duration: 1.5s;
-}
+    .carousel-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 12px;
+    }
 
-@-webkit-keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
-}
+    .indicator-bar {
+      width: 30px;
+      height: 4px;
+      background-color: #bbb;
+      border-radius: 2px;
+      transition: background-color 0.3s;
+    }
 
-@keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
-}
-
-/* On smaller screens, decrease text size */
-@media only screen and (max-width: 300px) {
-  .prev, .next,.text {font-size: 11px}
-}
-</style>
+    .indicator-bar.active {
+      background-color: #333;
+    }
+  </style>
 </head>
 <body>
 
-<div class="slideshow-container">
-
-<div class="mySlides fade">
-  <div class="numbertext">1 / 3</div>
-  <img src="F:\IT\Sites_in_works\Pavel_k2_Transfer\Pavel_k2_Vertical_site\static\image\sities\krasnodar.jpg" style="width:100%">
-  <div class="text">Caption Text</div>
+<div class="carousel">
+  <div class="carousel-track" id="track">
+    <div class="carousel-item" style="background-color: red">1</div>
+    <div class="carousel-item" style="background-color: yellow">2</div>
+    <div class="carousel-item" style="background-color: green">3</div>
+    <div class="carousel-item" style="background-color: blue">4</div>
+    <div class="carousel-item" style="background-color: blueviolet">5</div>
+  </div>
+  <button class="carousel-button prev" onclick="moveSlide(-1)">&#10094;</button>
+  <button class="carousel-button next" onclick="moveSlide(1)">&#10095;</button>
 </div>
 
-<div class="mySlides fade">
-  <div class="numbertext">2 / 3</div>
-  <img src="F:\IT\Sites_in_works\Pavel_k2_Transfer\Pavel_k2_Vertical_site\static\image\sities\sochi.jpg" style="width:100%">
-  <div class="text">Caption Two</div>
-</div>
-
-<div class="mySlides fade">
-  <div class="numbertext">3 / 3</div>
-  <img src="F:\IT\Sites_in_works\Pavel_k2_Transfer\Pavel_k2_Vertical_site\static\image\sities\rostov.jpg" style="width:100%">
-  <div class="text">Caption Three</div>
-</div>
-
-<a class="prev" onclick="plusSlides(-1)">❮</a>
-<a class="next" onclick="plusSlides(1)">❯</a>
-
-</div>
-<br>
-
-<div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1)"></span>
-  <span class="dot" onclick="currentSlide(2)"></span>
-  <span class="dot" onclick="currentSlide(3)"></span>
+<div class="carousel-indicators" id="indicators">
+  <div class="indicator-bar active"></div>
+  <div class="indicator-bar"></div>
+  <div class="indicator-bar"></div>
+  <div class="indicator-bar"></div>
+  <div class="indicator-bar"></div>
 </div>
 
 <script>
-var slideIndex = 1;
-showSlides(slideIndex);
+  const track = document.getElementById('track');
+  const indicators = document.querySelectorAll('.indicator-bar');
+  const items = Array.from(track.children);
+  let currentIndex = 0;
 
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
+  function updateView() {
+    const offset = -currentIndex * 300;
+    track.style.transform = `translateX(${offset}px)`;
 
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
+    items.forEach((item, index) => {
+      item.classList.remove('dimmed');
+      if (index === currentIndex - 1 || index === currentIndex + 1) {
+        item.classList.add('dimmed');
+      }
+    });
 
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
+    indicators.forEach((ind, idx) => {
+      ind.classList.toggle('active', idx === currentIndex);
+    });
   }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
+
+  function moveSlide(step) {
+    currentIndex += step;
+    if (currentIndex < 0) currentIndex = 0;
+    if (currentIndex >= items.length) currentIndex = items.length - 1;
+    updateView();
   }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
-}
+
+  updateView();
 </script>
 
 </body>
 </html>
-
-
-
