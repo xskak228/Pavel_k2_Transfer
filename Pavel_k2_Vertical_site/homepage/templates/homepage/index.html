@@ -336,7 +336,6 @@
         });
     </script>
 
-
     <div class="bid">
         <div class="slogan">Мы помогаем вам быстро, удобно и безопасно добираться из одного города в другой. Путешествуйте с комфортом и доверием!</div>
 
@@ -365,10 +364,10 @@
         <div class="route_link">
             <a class="route" href="/booking/Москва---Санкт-Петербург/">
                 <div class="city city-left">
-                    <img src="static\image\sities\moscow.jpg" alt="Москва">
+                    <img src="{% static 'image\sities\moscow.jpg' %}" alt="Москва">
                 </div>
                 <div class="city city-right">
-                    <img src="static\image\sities\piter.jpg" alt="Санкт-Петербург">
+                    <img src="{% static 'image\sities\piter.jpg' %}" alt="Санкт-Петербург">
                 </div>
                 <div class="route-title">Москва - Санкт-Петербург</div>
             </a>
@@ -377,10 +376,10 @@
         <div class="route_link">
             <a class="route" href="/booking/Минеральные_Воды---Сочи/">
                 <div class="city city-left">
-                    <img src="static\image\sities\minvodi.jpg" alt="Минеральные Воды">
+                    <img src="{% static 'image\sities\minvodi.jpg' %}" alt="Минеральные Воды">
                 </div>
                 <div class="city city-right">
-                    <img src="static\image\sities\sochi.jpg" alt="Сочи">
+                    <img src="{% static 'image\sities\sochi.jpg' %}" alt="Сочи">
                 </div>
                 <div class="route-title">Минеральные Воды - Сочи</div>
             </a>
@@ -389,10 +388,10 @@
         <div class="route_link">
             <a class="route" href="/booking/Краснодар---Нижний_Новгород/">
                 <div class="city city-left">
-                    <img src="static\image\sities\krasnodar.jpg" alt="Краснодар">
+                    <img src="{% static 'image\sities\krasnodar.jpg' %}" alt="Краснодар">
                 </div>
                 <div class="city city-right">
-                    <img src="static\image\sities\novgorod.jpg" alt="Нижний Новгород">
+                    <img src="{% static 'image\sities\novgorod.jpg' %}" alt="Краснодар">
                 </div>
                 <div class="route-title">Краснодар - Нижний Новгород</div>
            </a>
@@ -401,10 +400,10 @@
         <div class="route_link">
             <a class="route" href="/booking/Ставрополь---Ростов-на-Дону/">
                 <div class="city city-left">
-                    <img src="static\image\sities\stavropol.jpg" alt="Ставрополь">
+                    <img src="{% static 'image\sities\stavropol.jpg' %}" alt="Краснодар">
                 </div>
                 <div class="city city-right">
-                    <img src="static\image\sities\rostov.jpg" alt="Ростов на Дону">
+                    <img src="{% static 'image\sities\rostov.jpg' %}" alt="Краснодар">
                 </div>
                 <div class="route-title">Ставрополь - Ростов на Дону</div>
            </a>
@@ -419,31 +418,31 @@
         <div class="carousel">
               <div class="carousel-track" id="track">
                   <div class="carousel-item" >
-                      <div class="tariff-image"><img src="static\image\tariffs\1tariff.png" alt=""></div>
+                      <div class="tariff-image"><img src="{% static 'image\tariffs\1tariff.png' %}" alt="Эконом класс"></div>
                       <div class="tariff-title"><h1>Эконом</h1></div>
                       <div class="tariff-info"><h5>Рено Логан<br>Дэу Джентра<br>Лада Веста</h5></div>
                       <div class="tariff-price"><h2>23 руб/км</h2></div>
                   </div>
                   <div class="carousel-item" >
-                      <div class="tariff-image"><img src="static\image\tariffs\2tariff.png" alt=""></div>
+                      <div class="tariff-image"><img src="{% static 'image\tariffs\2tariff.png' %}" alt="Стандарт класс"></div>
                       <div class="tariff-title"><h1>Стандарт</h1></div>
                       <div class="tariff-info">Хёндай Солярис<br>Фольцваген Поло<br>Киа Рио</div>
                       <div class="tariff-price"><h2>27 руб/км</h2></div>
                   </div>
                   <div class="carousel-item" >
-                      <div class="tariff-image"><img src="static\image\tariffs\3tariff.png" alt=""></div>
+                      <div class="tariff-image"><img src="{% static 'image\tariffs\3tariff.png' %}" alt="Комфорт класс"></div>
                       <div class="tariff-title"><h1>Комфорт</h1></div>
                       <div class="tariff-info">Шкода Октавиа<br>Тойота Королла<br>Фольцваген Джетта</div>
                       <div class="tariff-price"><h2>30 руб/км</h2></div>
                   </div>
                   <div class="carousel-item" >
-                      <div class="tariff-image"><img src="static\image\tariffs\4tariff.png" alt=""></div>
+                      <div class="tariff-image"><img src="{% static 'image\tariffs\4tariff.png' %}" alt="Минивэны"></div>
                       <div class="tariff-title"><h1>Минивэны <u>до 8чел.</u></h1></div>
                       <div class="tariff-info">Тойота Альфорд<br>Мерседес Вито<br>Хендай Старекс</div>
                       <div class="tariff-price"><h2>45 руб/км</h2></div>
                   </div>
                   <div class="carousel-item">
-                      <div class="tariff-image"><img src="static\image\tariffs\5tariff.png" alt=""></div>
+                      <div class="tariff-image"><img src="{% static 'image\tariffs\5tariff.png' %}" alt="Бизнес класс"></div>
                       <div class="tariff-title"><h1>Бизнес</h1></div>
                       <div class="tariff-info">БМВ 6<br>Мерседес S класс<br>Мерседес E класс</div>
                       <div class="tariff-price"><h2>50 руб/км</h2></div>
@@ -475,7 +474,7 @@
                     <p>Отличный сервис! Пользуюсь уже не в первый раз, всегда вовремя и удобно. Водители профессионалы, сервис на высоте.</p>
                 </div>
                 <div class="stars">★★★★★</div>
-                <div class="ocenka"><img id="icon-review" src="static\image\review.png" alt="Telegram">5/5</div>
+                <div class="ocenka"><img id="icon-review" src="{% static 'image\review.png' %}" alt="Telegram">5/5</div>
             </div>
 
             <div class="reviews-item">
@@ -485,7 +484,7 @@
                     <p>Очень удобно и быстро. Давно искал надежный способ добраться до нужного города, и этот сервис полностью оправдал мои ожидания.</p>
                 </div>
                 <div class="stars">★★★★☆</div>
-                <div class="ocenka"><img id="icon-review" src="static\image\review.png" alt="Telegram">4/5</div>
+                <div class="ocenka"><img id="icon-review" src="{% static 'image\review.png' %}" alt="Telegram">4/5</div>
             </div>
             <div class="reviews-item">
                 <div class="review-author"><h2>Павел В.</h2></div>
@@ -494,12 +493,12 @@
                     <p>Рекомендую всем! Дешево, надежно и комфортно. Не думал, что поездки могут быть такими удобными. Огромное спасибо!</p>
                 </div>
                 <div class="stars">★★★★★</div>
-                <div class="ocenka"><img id="icon-review" src="static\image\review.png" alt="Telegram">5/5</div>
+                <div class="ocenka"><img id="icon-review" src="{% static 'image\review.png' %}" alt="Telegram">5/5</div>
             </div>
         </div>
     </div>
 
-        <script>
+    <script>
       const track = document.getElementById('track');
       const indicators = document.querySelectorAll('.indicator-bar');
       const items = Array.from(track.children);

@@ -14,6 +14,10 @@
             padding: 0;
             box-sizing: border-box;
         }
+        a {
+            text-decoration: none;
+            color: white;
+        }
         body {
             font-family: 'Montserrat', Arial, sans-serif;
             background-color: black;
@@ -26,7 +30,7 @@
             flex-direction: column;
             min-height: 100vh;
         }
-        header, footer  {
+        header  {
             background-color: black;
             color: white;
             padding: 15px 20px;
@@ -62,6 +66,33 @@
             margin: -50px 0 0 -20px;
             width: 350px;
         }
+        footer {
+            margin: 150px 20px 20px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .footer-links{
+            display: flex;
+            justify-content: space-around;
+        }
+        .footer-links a {
+            color: white;
+            text-decoration: underline; !important;
+        }
+        .footer-logo{
+            padding-left: 80%;
+        }
+        #LogoFooter{
+            width: 200px;
+        }
+        #NumbFooter {
+            text-align: right;
+            display: compact;
+            right: 0;
+            margin-top : -15px;
+            padding-right: 13px;
+            font-size: 12px;
+        }
     </style>
     <meta charset="UTF-8">
     <title>Вертикаль - Главная</title>
@@ -72,11 +103,11 @@
 </head>
 <body>
     <header>
-    <a href="{% url 'index' %}"><img id="LogoHeader" src="static\image\logo\Logo.svg" alt="Вертикаль"></a>
+    <a href="{% url 'index' %}"><img id="LogoHeader" src="{% static 'image/logo/Logo.svg' %}"  alt="Вертикаль"></a>
     <div class="nav-buttons">
-        <a class="phone-number" href="#"><h3>+7(123)456-78-90</h3></a>
-        <a href="#"><img class="header-buttons" id="icon-telegram" src="static\image\icon-telegram.png" alt="Telegram"></a>
-        <a href="#"><img class="header-buttons" id="icon-whatsapp" src="static\image\icon-whatsapp.png" alt="WhatsApp"></a>
+        <a class="phone-number" id="NumbHeader" href="#"><h3>+7(123)456-78-90</h3></a>
+        <a href="#"><img class="header-buttons" id="icon-telegram" src="{% static 'image\icon-telegram.png' %}" alt="Telegram"></a>
+        <a href="#"><img class="header-buttons" id="icon-whatsapp" src="{% static 'image\icon-whatsapp.png' %}" alt="WhatsApp"></a>
     </div>
     </header>
 
@@ -84,6 +115,16 @@
     <!-- Контент по умолчанию -->
     {% endblock %}
 
-    {% include "base/footer.html" %}
+    <footer>
+        <div class="footer-links">
+            <a href="{% url 'rules' %}"><u>Политика компании</u></a>
+            <a href="{% url 'rules' %}"><u>Политика конфиденциальности</u></a>
+            <a href="{% url 'rules' %}"><u>Тех. Поддержка</u></a>
+        </div>
+        <div class="footer-logo">
+            <a href="{% url 'index' %}"><img id="LogoFooter" src="{% static 'image\logo\Logo.svg' %}" alt="Вертикаль"></a>
+            <a class="phone-number" id="NumbFooter" href="#"><h3>+7(123)456-78-90</h3></a>
+        </div>
+    </footer>
 </body>
 </html>

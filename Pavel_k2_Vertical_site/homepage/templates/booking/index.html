@@ -12,10 +12,9 @@
             font-size: 18px;
         }
         form {
-            background: #f9f9f9;
+            background-color: rgba(162, 162, 162, 0.66);
             padding: 30px;
-            border-radius: 10px;
-            border: 1px solid #ccc;
+            border-radius: 30px;
             max-width: 700px;
             margin: 40px auto;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -23,21 +22,40 @@
             grid-template-columns: 1fr 1fr;
             gap: 15px;
         }
+        .name_form {
+            padding-top: 30px;
+            font-size: 20px;
+            color: white;
+        }
+
         form input, form button, select {
             width: 100%;
             padding: 15px;
             font-size: 18px;
-            border: 1px solid #ccc;
+            border: 1px solid #ffffff;
             border-radius: 5px;
         }
+        form input::placeholder {
+            color: #6b6b6b;
+            font-size: 16px;
+        }
+
         form .full-width {
             grid-column: span 2;
         }
         form button {
-            background-color: #333;
+            background:
+                linear-gradient(
+                  30deg,
+                  #F5A619 0%,
+                  #F36114 40%,
+                  #F12B11 100%
+                );
+            ;
             color: white;
             border: none;
             cursor: pointer;
+            border-radius: 20px;
         }
         .checkbox-group {
             grid-column: span 2;
@@ -63,16 +81,19 @@
             height: 60px; /* или сколько нужно */
         }
     </style>
-
+    <div class="name_form">
+        <h2>Расскажите подробнее о ваших пожеланиях</h2>
+    </div>
 <form action="" method="POST">
     {% csrf_token %}
+
     <input type="text" name="name" required placeholder="Ваше имя">
     <input type="tel" name="phone" required oninput="formatPhone(this)" placeholder="Ваш номер">
     <input type="date" name="date" id="date" min="{{ tomorrow }}" required>
     <input type="time" name="time" required>
     <input type="text" id="from_location" name="from_location" value="{{ from_location }}" required placeholder="Откуда">
     <input type="text" id="to_location" name="to_location" value="{{ to_location }}" required placeholder="Куда">
-    <input type="number" id="num_people" name="num_people" min="1" max="8" value="{{ num_people }}" required placeholder="Кол-во человек">
+    <input type="number" id="num_people" name="num_people" min="1" max="8" value="{{ num_people }}" required placeholder="Количество человек">
     <input type="number" name="luggage" min="0" max="16" required placeholder="Количество багажа">
 
     <select name="tariff" class="full-width" required>

@@ -4,13 +4,25 @@
     {% load static %}
 
     <style>
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .rules-link {
+            color: #0058ff;
+            text-decoration: underline;
+        }
+
         .nav-buttons a {
             color: white;
             text-decoration: none;
             margin-left: 15px;
             font-size: 18px;
         }
+
         form {
+            color: black;
             background: #f9f9f9;
             padding: 30px;
             border-radius: 10px;
@@ -18,47 +30,83 @@
             max-width: 500px;
             margin: 40px auto;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        form label {
+            height: 400px;
             display: flex;
-            align-items: center;
-            font-size: 18px;
-            margin-bottom: 10px;
+            flex-direction: column;
+            justify-content: space-between;
         }
-        form input[type="checkbox"] {
+
+        .checkboxes {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .checkboxes label {
+            display: flex;
+            align-items: flex-start;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .checkboxes input[type="checkbox"] {
             margin-right: 10px;
+            margin-top: 3px;
+            flex-shrink: 0;
         }
-        form button {
-            width: 100%;
-            padding: 15px;
-            font-size: 18px;
-            border: none;
-            border-radius: 5px;
-            background-color: #333;
-            color: white;
-            cursor: pointer;
+
+        .checkboxes a {
+            color: #0066cc;
+            text-decoration: underline;
         }
+
         .price {
             font-size: 22px;
             font-weight: bold;
             margin: 20px 0;
         }
+
+        form button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(30deg, #F5A619 0%, #F36114 40%, #F12B11 100%);
+            color: white;
+            cursor: pointer;
+            align-self: flex-end;
+        }
+
+        .name_form h2 {
+            text-align: center;
+            margin-top: 30px;
+        }
     </style>
 
-    <h2>Тест Форма Цена</h2>
+    <div class="name_form">
+        <h2>Подтверждение заявки</h2>
+    </div>
+
     <form action="" method="POST">
         {% csrf_token %}
-        <label>
-            <input type="checkbox" name="rules" required>
-            Ознакомился с <a href="/rules">правилами перевозки</a>
-        </label>
-        <label>
-            <input type="checkbox" name="privacy" required>
-            Ознакомился с <a href="/rules">политикой конфиденциальности</a> и даю согласие на <a href="/rules">обработку персональных данных</a>
-        </label>
-        <h3>Приблизительная цена</h3>
-        <div class="price">{{ price }} руб.</div>
+
+        <div class="checkboxes">
+            <label>
+                <input type="checkbox" required>
+                <span>Ознакомился с <a class="rules-link" href="/rules" target="_blank">правилами перевозки</a></span>
+            </label>
+            <label>
+                <input type="checkbox" required>
+                <span>Ознакомился с <a class="rules-link" href="/privacy" target="_blank">политикой конфиденциальности</a> и даю согласие на <a class="rules-link" href="/personal-data" target="_blank">обработку персональных данных</a></span>
+            </label>
+        </div>
+
+        <div>
+            <h3>Приблизительная цена</h3>
+            <div class="price">{{ price }} руб.</div>
+        </div>
+
         <button type="submit">Отправить заявку</button>
     </form>
-
 {% endblock %}
