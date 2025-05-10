@@ -191,3 +191,7 @@ def total_price(request, booking_id):
     }
 
     return render(request, template, context)
+
+def rules(request):
+    template = "rules/index.html"
+    return render(request, template)
