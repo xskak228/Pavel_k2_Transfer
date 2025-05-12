@@ -3,7 +3,7 @@ import os
 from django.conf import settings
 from datetime import timedelta
 import openrouteservice
-from urllib.parse import unquote
+from urllib.parse import unquote, quote
 from django.utils.timezone import now
 
 from .models import Booking, Pricing
@@ -11,11 +11,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.template import loader
 
-#https://openrouteservice.org/
+# https://openrouteservice.org/
 api_key = "5b3ce3597851110001cf6248aa5159d26bb141e28af00c07d47a0ad4"
 client = openrouteservice.Client(key=api_key)
 
-#function to get coord in city
+
+# function to get coord in city
 def get_coordinates(city):
     print(city)
     city = city.replace("_", " ")
@@ -27,7 +28,8 @@ def get_coordinates(city):
         return [coords[0], coords[1]]  # [долгота, широта]
     return None
 
-#function to get kilomiters from cities
+
+# function to get kilomiters from cities
 def get_kilomiters(city_from, city_to):
     coords1 = get_coordinates(city_from)
     coords2 = get_coordinates(city_to)
@@ -39,7 +41,8 @@ def get_kilomiters(city_from, city_to):
     else:
         return None
 
-#function to get price from prices form
+
+# function to get price from prices form
 def get_price(km, num_people, luggage, shild_seat, pet):
     pricing = Pricing.objects.first()
     price = 0
@@ -53,7 +56,7 @@ def get_price(km, num_people, luggage, shild_seat, pet):
     return price
 
 
-#MainPage - Form, tariffs, routes
+# MainPage - Form, tariffs, routes
 def index(request):
     template = "homepage/index.html"
     error_message = None
@@ -64,7 +67,7 @@ def index(request):
         num_people = request.POST.get("num_people")
 
         # Загружаем список городов
-        cities_path = os.path.join(settings.BASE_DIR, "static", "cities.json")
+        cities_path = os.path.join(settings.STATIC_ROOT_DIR, "cities.json")
         with open(cities_path, "r", encoding="utf-8") as f:
             cities = json.load(f)
 
@@ -78,18 +81,29 @@ def index(request):
             request.session["to_location"] = to_location
             request.session["num_people"] = num_people
 
-            return redirect(f"/booking/{from_location}---{to_location}")  # Переход на вторую страницу
+            # return redirect(f"/booking/{quote(from_location)}---{quote(to_location)}")
+            # return redirect(f"/booking/{from_location}---{to_location}")  # Переход на вторую страницу
+            return redirect(form, from_location, to_location)
     return render(request, template, context={"error_message": error_message})
 
-#Form - edit form rout
+
+# Form - edit form rout
 def form(request, city_from, city_to):
-    # Загружаем список городов
-    cities_path = os.path.join(settings.BASE_DIR, "static", "cities.json")
-    with open(cities_path, "r", encoding="utf-8") as f:
-        cities = json.load(f)
+    city_from = unquote(city_from, encoding='utf-8')
+    city_to = unquote(city_to, encoding='utf-8')
+
+    # Формируем путь к файлу
+    cities_path = os.path.join(settings.STATIC_ROOT_DIR, "cities.json")
+    print(f"Trying to load cities.json from: {cities_path}")  # Для отладки
+
+    try:
+        with open(cities_path, "r", encoding="utf-8") as f:
+            cities = json.load(f)
+    except FileNotFoundError:
+        raise Http404(f"Файл cities.json не найден по пути: {cities_path}")
 
     if city_from not in cities or city_to not in cities:
-        raise Http404("Неправильно указан город. Пожалуйста, не играйтесь с URL.")
+        raise Http404(f"Неправильно указан город. Пожалуйста, не играйтесь с URL. {city_from} -- {city_to}")
 
     template = "booking/index.html"
     confirm_template = "booking/total_price.html"
@@ -149,7 +163,7 @@ def form(request, city_from, city_to):
             booking.status = "ЗаявкаОтправленаБоту"
             booking.save()
             request.session.flush()  # Очистить step/booking_id
-            return render(request, "homepage/index.html")  # Успешная заявка
+            return redirect(index)  # Успешная заявка
 
     # GET запрос:
     if request.session.get("step") == "confirm":
@@ -174,23 +188,6 @@ def form(request, city_from, city_to):
         "tomorrow": str(tomorrow)
     })
 
-#FormPrice - see total price and send final application
-def total_price(request, booking_id):
-    booking = get_object_or_404(Booking, id=booking_id)
-
-    if request.method == "POST":
-        booking.status = "ЗаявкаОтправленаБоту"
-        booking.save()
-        return redirect("../..")  # Заменить на страницу успешной заявки
-
-    template = "booking/total_price.html"
-
-    context = {
-        "price": booking.price,
-        "booking_id": booking.id
-    }
-
-    return render(request, template, context)
 
 def rules(request):
     template = "rules/index.html"
