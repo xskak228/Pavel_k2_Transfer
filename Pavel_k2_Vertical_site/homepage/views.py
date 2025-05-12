@@ -71,10 +71,16 @@ def index(request):
         with open(cities_path, "r", encoding="utf-8") as f:
             cities = json.load(f)
 
-        if from_location not in cities:
+        cities_lower = []
+        for i in cities:
+            cities_lower.append(i.lower())
+
+        if from_location.lower() not in cities_lower:
             error_message = f"Город отправления '{from_location}' не найден! Пожалуйста выберите город из списка"
-        elif to_location not in cities:
+        elif to_location.lower() not in cities_lower:
             error_message = f"Город назначения '{to_location}' не найден! Пожалуйста выберите город из списка"
+        elif from_location.lower() == to_location.lower():
+            error_message = f"Нельзя выбрать одинаковые города"
         else:
             # Сохраняем в сессии
             request.session["from_location"] = from_location
@@ -99,10 +105,13 @@ def form(request, city_from, city_to):
     try:
         with open(cities_path, "r", encoding="utf-8") as f:
             cities = json.load(f)
+            cities_lower = []
+            for i in cities:
+                cities_lower.append(i.lower())
     except FileNotFoundError:
         raise Http404(f"Файл cities.json не найден по пути: {cities_path}")
 
-    if city_from not in cities or city_to not in cities:
+    if city_from.lower() not in cities_lower or city_to.lower() not in cities_lower:
         raise Http404(f"Неправильно указан город. Пожалуйста, не играйтесь с URL. {city_from} -- {city_to}")
 
     template = "booking/index.html"
@@ -183,8 +192,8 @@ def form(request, city_from, city_to):
     # Отрисовать первую форму
     return render(request, template, {
         "error_message": error_message,
-        "from_location": unquote(city_from),
-        "to_location": unquote(city_to),
+        "from_location": unquote(city_from.capitalize()),
+        "to_location": unquote(city_to.capitalize()),
         "tomorrow": str(tomorrow)
     })
 

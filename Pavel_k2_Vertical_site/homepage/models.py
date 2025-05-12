@@ -38,6 +38,11 @@ class Pricing(models.Model):
     price_per_baggage = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена за 1 багаж")
     price_for_pets = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена за домашних животных")
     price_for_child_seat = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена за детское кресло")
+    tariff_price_econom = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена за ЭКОНОМ тариф")
+    tariff_price_standart = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена за СТАНДАРТ тариф")
+    tariff_price_comfort = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена за КОМФОРТ тариф")
+    tariff_price_miniven = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена за МИНИВЕН тариф")
+    tariff_price_biznes = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена за БИЗНЕС тариф")
 
     def __str__(self):
         return f"Тариф {self.id}"
