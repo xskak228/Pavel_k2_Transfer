@@ -19,6 +19,7 @@ class Booking(models.Model):
     phone = models.CharField(max_length=20, verbose_name="Телефон")
     date = models.DateField(verbose_name="Дата поездки")
     time = models.TimeField(verbose_name="Время поездки")
+    tariff = models.CharField(max_length=255, verbose_name="Тариф")
     num_people = models.PositiveIntegerField(verbose_name="Количество человек")
     luggage = models.PositiveIntegerField(verbose_name="Количество багажа")
     child_seat = models.BooleanField(default=False, verbose_name="Детское кресло")

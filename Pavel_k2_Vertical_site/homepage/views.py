@@ -90,7 +90,7 @@ def index(request):
             # return redirect(f"/booking/{quote(from_location)}---{quote(to_location)}")
             # return redirect(f"/booking/{from_location}---{to_location}")  # Переход на вторую страницу
             return redirect(form, from_location, to_location)
-    return render(request, template, context={"error_message": error_message})
+    return render(request, template, context={"error_message": error_message, "pricing": Pricing.objects.first()})
 
 
 # Form - edit form rout
@@ -129,15 +129,14 @@ def form(request, city_from, city_to):
             time = request.POST.get("time")
             from_location = request.POST.get("from_location")
             to_location = request.POST.get("to_location")
+            tariff = request.POST.get("tariff")
             num_people = request.POST.get("num_people")
             luggage = request.POST.get("luggage")
             child_seat = request.POST.get("child_seat") == "Да"
             pet = request.POST.get("pet") == "Да"
 
-            if from_location not in cities:
-                error_message = f"Город отправления '{from_location}' не найден"
-            elif to_location not in cities:
-                error_message = f"Город назначения '{to_location}' не найден"
+            if city_from.lower() not in cities_lower or city_to.lower() not in cities_lower:
+                raise Http404(f"Неправильно указан город. Пожалуйста, не играйтесь с URL. {city_from} -- {city_to}")
             else:
                 kilometers = get_kilomiters(from_location, to_location)
                 price = get_price(kilometers, num_people, luggage, child_seat, pet)
@@ -147,6 +146,7 @@ def form(request, city_from, city_to):
                     phone=phone,
                     date=date,
                     time=time,
+                    tariff=tariff,
                     from_location=from_location,
                     to_location=to_location,
                     num_people=num_people,

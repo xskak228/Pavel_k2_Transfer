@@ -5,8 +5,8 @@ from django.core.exceptions import ValidationError
 
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
-    list_display = ("unique_number", "created_at", "name", "phone", "from_location", "to_location", "date", "time", "price", "status",)
-    list_filter = ("from_location", "to_location", "date", "status")
+    list_display = ("unique_number", "created_at", "name", "phone", "tariff", "from_location", "to_location", "date", "time", "price", "status")
+    list_filter = ("from_location", "to_location", "date", "status", "tariff")
     search_fields = ("unique_number", "name", "phone")
     readonly_fields = ("unique_number", "created_at", "updated_at")
 
@@ -30,4 +30,5 @@ class PricingAdmin(admin.ModelAdmin):
             raise ValidationError("Невозможно удалить единственную запись.")
         super().delete_model(request, obj)
 
-    list_display = ("price_per_km", "price_per_passenger", "price_per_baggage", "price_for_pets", "price_for_child_seat")
+    list_display = ("price_per_km", "price_per_passenger", "price_per_baggage", "price_for_pets", "price_for_child_seat",
+                    "tariff_price_econom", "tariff_price_standart", "tariff_price_comfort", "tariff_price_miniven", "tariff_price_biznes")
