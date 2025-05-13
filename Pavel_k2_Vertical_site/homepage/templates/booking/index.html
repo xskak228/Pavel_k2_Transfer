@@ -81,6 +81,30 @@
             height: 60px; /* или сколько нужно */
         }
     </style>
+
+    <script>
+        $(document).ready(function(){
+            $.getJSON("{% static 'cities.json' %}", function(data) {
+                $("#from_location, #to_location").autocomplete({
+                    source: function(request, response) {
+                        var results = $.ui.autocomplete.filter(data, request.term);
+                        response(results.slice(0, 100)); // Ограничиваем вывод 10 элементами
+                    },
+                    minLength: 1, // Минимальное количество символов для активации
+                    open: function() {
+                        // Добавляем прокрутку к выпадающему меню
+                        $(this).autocomplete("widget").css({
+                            "max-height": "200px",
+                            "max-width": "251px",
+                            "overflow-y": "auto",
+                            "overflow-x": "hidden"
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
     <div class="name_form">
         <h2>Расскажите подробнее о ваших пожеланиях</h2>
     </div>

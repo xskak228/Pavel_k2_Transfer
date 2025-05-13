@@ -328,16 +328,27 @@
         $(document).ready(function(){
             $.getJSON("{% static 'cities.json' %}", function(data) {
                 $("#from_location, #to_location").autocomplete({
-                    source: data,
-                    max: 9, // Ограничиваем число предложений до 10
-                    minLength: 1 // Количество символов для начала автодополнения
+                    source: function(request, response) {
+                        var results = $.ui.autocomplete.filter(data, request.term);
+                        response(results.slice(0, 100)); // Ограничиваем вывод 10 элементами
+                    },
+                    minLength: 1, // Минимальное количество символов для активации
+                    open: function() {
+                        // Добавляем прокрутку к выпадающему меню
+                        $(this).autocomplete("widget").css({
+                            "max-height": "200px",
+                            "max-width": "251px",
+                            "overflow-y": "auto",
+                            "overflow-x": "hidden"
+                        });
+                    }
                 });
             });
         });
     </script>
 
     <div class="bid">
-        <div class="slogan">Мы помогаем вам быстро, удобно и безопасно добираться из одного города в другой. Путешествуйте с комфортом и доверием!</div>
+        <div class="slogan"><br>Мы помогаем вам быстро, удобно и безопасно добираться из одного города в другой. Путешествуйте с комфортом и доверием!</div>
 
         <form action="" method="POST">
             {% csrf_token %}
