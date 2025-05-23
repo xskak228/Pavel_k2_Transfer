@@ -95,6 +95,7 @@
         }
     </style>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вертикаль - Главная</title>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -105,9 +106,9 @@
     <header>
     <a href="{% url 'index' %}"><img id="LogoHeader" src="{% static 'image/logo/Logo.svg' %}"  alt="Вертикаль"></a>
     <div class="nav-buttons">
-        <a class="phone-number" id="NumbHeader" href="#"><h3>+7(123)456-78-90</h3></a>
-        <a href="#"><img class="header-buttons" id="icon-telegram" src="{% static 'image\icon-telegram.png' %}" alt="Telegram"></a>
-        <a href="#"><img class="header-buttons" id="icon-whatsapp" src="{% static 'image\icon-whatsapp.png' %}" alt="WhatsApp"></a>
+        <a class="phone-number" id="NumbHeader" href="tel:{{ MainInfo.Company_Phone_Number }}"><h2>{{ MainInfo.Company_Phone_Number }}</h2></a>
+        <a href="{{ MainInfo.Url_Telegram }}"><img class="header-buttons" id="icon-telegram" src="{% static 'image\icon-telegram.png' %}" alt="Telegram"></a>
+        <a href="{{ MainInfo.Url_WhatsApp }}"><img class="header-buttons" id="icon-whatsapp" src="{% static 'image\icon-whatsapp.png' %}" alt="WhatsApp"></a>
     </div>
     </header>
 
@@ -123,7 +124,7 @@
         </div>
         <div class="footer-logo">
             <a href="{% url 'index' %}"><img id="LogoFooter" src="{% static 'image\logo\Logo.svg' %}" alt="Вертикаль"></a>
-            <a class="phone-number" id="NumbFooter" href="#"><h3>+7(123)456-78-90</h3></a>
+            <a class="phone-number" id="NumbFooter" href="#"><h3>{{ MainInfo.Company_Phone_Number }}</h3></a>
         </div>
     </footer>
 </body>

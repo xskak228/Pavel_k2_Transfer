@@ -5,22 +5,22 @@ from datetime import timedelta
 import openrouteservice
 from urllib.parse import unquote, quote
 from django.utils.timezone import now
+import requests
 
-from .models import Booking, Pricing
+from .models import Booking, Pricing, MainInfo, MainSettings, SupportInfo
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.template import loader
 
 # https://openrouteservice.org/
-api_key = "5b3ce3597851110001cf6248aa5159d26bb141e28af00c07d47a0ad4"
+# api_key = "5b3ce3597851110001cf6248aa5159d26bb141e28af00c07d47a0ad4"
+api_key = MainSettings.objects.all()[0].ApiKey_OpenRouteService
 client = openrouteservice.Client(key=api_key)
 
 
 # function to get coord in city
 def get_coordinates(city):
-    print(city)
     city = city.replace("_", " ")
-    print(city)
     result = client.pelias_search(city)
 
     if result and 'features' in result and result['features']:
@@ -39,13 +39,33 @@ def get_kilomiters(city_from, city_to):
         distance = route['routes'][0]['summary']['distance']
         return distance / 1000
     else:
+        print("bad get_kil")
         return None
 
 
 # function to get price from prices form
-def get_price(km, num_people, luggage, shild_seat, pet):
+def get_price(km, num_people, luggage, tariff, shild_seat, pet):
     pricing = Pricing.objects.first()
     price = 0
+    print(tariff)
+    if tariff == "Эконом":
+        price += int(km) * int(pricing.tariff_price_econom)
+        print(price)
+    elif tariff == "Стандарт":
+        price += int(km) * int(pricing.tariff_price_standart)
+        print(price)
+    elif tariff == "Комфорт":
+        price += int(km) * int(pricing.tariff_price_comfort)
+        print(price)
+    elif tariff == "Минивэн":
+        price += int(km) * int(pricing.tariff_price_miniven)
+        print(price)
+    elif tariff == "Бизнес":
+        price += int(km) * int(pricing.tariff_price_biznes)
+        print(price)
+    else:
+        return None
+
     price += int(km) * int(pricing.price_per_km)
     price += int(num_people) * int(pricing.price_per_passenger)
     price += int(luggage) * int(pricing.price_per_baggage)
@@ -90,7 +110,7 @@ def index(request):
             # return redirect(f"/booking/{quote(from_location)}---{quote(to_location)}")
             # return redirect(f"/booking/{from_location}---{to_location}")  # Переход на вторую страницу
             return redirect(form, from_location, to_location)
-    return render(request, template, context={"error_message": error_message, "pricing": Pricing.objects.first()})
+    return render(request, template, context={"error_message": error_message, "pricing": Pricing.objects.first(), "MainInfo": MainInfo.objects.first()})
 
 
 # Form - edit form rout
@@ -139,7 +159,10 @@ def form(request, city_from, city_to):
                 raise Http404(f"Неправильно указан город. Пожалуйста, не играйтесь с URL. {city_from} -- {city_to}")
             else:
                 kilometers = get_kilomiters(from_location, to_location)
-                price = get_price(kilometers, num_people, luggage, child_seat, pet)
+                price = get_price(kilometers, num_people, luggage, tariff, child_seat, pet)
+
+                if price is None and kilometers is None:
+                    raise Http404(f"Что то пошло не так, пожалуйста попробуйте ще раз, если не получаеться обратитесь в ТП")
 
                 booking = Booking.objects.create(
                     name=name,
@@ -168,6 +191,8 @@ def form(request, city_from, city_to):
                 request.session["step"] = "form"
                 return redirect(request.path)
 
+            #https://api.telegram.org/bot8193779841:AAGpBzV0rRd6O79tziB_rr9H_GBDtVh5qP0/sendMessage?chat_id=1128832540&text=тест
+            test = requests.post("https://api.telegram.org/bot8193779841:AAGpBzV0rRd6O79tziB_rr9H_GBDtVh5qP0/sendMessage?chat_id=1128832540&text=тест")
             booking = Booking.objects.get(id=booking_id)
             booking.status = "ЗаявкаОтправленаБоту"
             booking.save()
@@ -186,7 +211,7 @@ def form(request, city_from, city_to):
         booking = get_object_or_404(Booking, id=booking_id)
 
         return render(request, confirm_template, {
-            "price": booking.price
+            "price": booking.price, "MainInfo": MainInfo.objects.first()
         })
 
     # Отрисовать первую форму
@@ -194,7 +219,8 @@ def form(request, city_from, city_to):
         "error_message": error_message,
         "from_location": unquote(city_from.capitalize()),
         "to_location": unquote(city_to.capitalize()),
-        "tomorrow": str(tomorrow)
+        "tomorrow": str(tomorrow),
+        "MainInfo": MainInfo.objects.first()
     })
 
 

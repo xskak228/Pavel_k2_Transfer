@@ -1,0 +1,90 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/static/fonts/Montserrat-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+    color: white;
+}
+body {
+    font-family: 'Montserrat', Arial, sans-serif;
+    background-color: black;
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1100px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+header  {
+    background-color: black;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav-buttons {
+    width: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.nav-buttons a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+    font-size: 18px;
+}
+header {
+    margin-top: 40px;
+}
+header img {
+    width: 40px;
+}
+.phone-number {
+    display: flex;
+    align-items: center;
+    padding-right: 60px;
+    padding-left: 60px;
+}
+#LogoHeader {
+    margin: -50px 0 0 -20px;
+    width: 350px;
+}
+footer {
+    margin: 150px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+}
+.footer-links{
+    display: flex;
+    justify-content: space-around;
+}
+.footer-links a {
+    color: white;
+    text-decoration: underline; !important;
+}
+.footer-logo{
+    padding-left: 80%;
+}
+#LogoFooter{
+    width: 200px;
+}
+#NumbFooter {
+    text-align: right;
+    display: compact;
+    right: 0;
+    margin-top : -15px;
+    padding-right: 13px;
+    font-size: 12px;
+}
