@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Booking, Pricing, MainInfo, MainSettings, SupportInfo
+from .models import Booking, Pricing, MainInfo, MainSettings, SupportInfo, SiteContent
 from django.core.exceptions import ValidationError
 
 
@@ -98,3 +98,8 @@ class SupportInfoAdmin(admin.ModelAdmin):
         super().delete_model(request, obj)
 
     list_display = ("Phone_Number_Support", "Url_Telegram_Support", "Url_YandexForm_Support")
+
+
+@admin.register(SiteContent)
+class SiteContentAdmin(admin.ModelAdmin):
+    list_display = ('title',)

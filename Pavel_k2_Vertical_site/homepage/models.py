@@ -1,5 +1,6 @@
 import random
 
+from ckeditor.fields import RichTextField
 from django.core.validators import MinValueValidator
 from django.db import models
 
@@ -75,3 +76,17 @@ class SupportInfo(models.Model):
 
     def __str__(self):
         return f"Настройки/Информация Технической поддержки"
+
+
+class SiteContent(models.Model):
+    title = models.CharField('Название', max_length=100)
+    CompanyPolicy = RichTextField('Политика Компании', blank=True)
+    PrivacyPolicy = RichTextField('Политика Конфиденциальности', blank=True)
+    HelpTextToSupport = RichTextField('Вспомагательынй текст для ТП', blank=True)
+
+    class Meta:
+        verbose_name = 'Контент сайта'
+        verbose_name_plural = 'Контент сайта'
+
+    def __str__(self):
+        return self.title
