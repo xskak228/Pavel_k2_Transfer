@@ -7,14 +7,14 @@ from urllib.parse import unquote, quote
 from django.utils.timezone import now
 import requests
 
-from .models import Booking, Pricing, MainInfo, MainSettings, SupportInfo
+from .models import Booking, Pricing, MainInfo, MainSettings, SupportInfo, Article
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.template import loader
 
 # https://openrouteservice.org/
 # api_key = "5b3ce3597851110001cf6248aa5159d26bb141e28af00c07d47a0ad4"
-api_key = MainSettings.objects.all()[0].ApiKey_OpenRouteService
+api_key = MainSettings.objects.first().ApiKey_OpenRouteService
 client = openrouteservice.Client(key=api_key)
 
 
@@ -226,4 +226,4 @@ def form(request, city_from, city_to):
 
 def rules(request):
     template = "rules/index.html"
-    return render(request, template)
+    return render(request, template, context={"Article": Article.objects.first()})

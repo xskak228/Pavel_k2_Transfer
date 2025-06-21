@@ -78,7 +78,7 @@ class SupportInfo(models.Model):
         return f"Настройки/Информация Технической поддержки"
 
 
-class SiteContent(models.Model):
+class Article(models.Model):
     title = models.CharField('Название', max_length=100)
     CompanyPolicy = RichTextField('Политика Компании', blank=True)
     PrivacyPolicy = RichTextField('Политика Конфиденциальности', blank=True)

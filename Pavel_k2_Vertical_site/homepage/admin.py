@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Booking, Pricing, MainInfo, MainSettings, SupportInfo, SiteContent
+from .models import Booking, Pricing, MainInfo, SupportInfo, Article, MainSettings
 from django.core.exceptions import ValidationError
 
 
@@ -100,6 +100,6 @@ class SupportInfoAdmin(admin.ModelAdmin):
     list_display = ("Phone_Number_Support", "Url_Telegram_Support", "Url_YandexForm_Support")
 
 
-@admin.register(SiteContent)
-class SiteContentAdmin(admin.ModelAdmin):
+@admin.register(Article)
+class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title',)

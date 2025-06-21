@@ -3,11 +3,25 @@
 {% block content %}
     {% load static %}
 
-    <h1>Политика конфиденциальности</h1>
-    <h4>--</h4>
-    <h1>Полиитика обработки персональных данных</h1>
-    <h4>--</h4>
-    <h1>Правила перевозки</h1>
-    <h4>--</h4>
+  <style></style>
 
+    <div class="rules">
+      <div class="PrivacyPolicy">
+        <h1>Политика конфиденциальности <br> и обработки персональныйх данных</h1>
+        <h1>-</h1>
+        <h2>{{ Article.PrivacyPolicy|safe }}</h2>
+        <br><br><br>
+      </div>
+      <div class="CompanyPolicy">
+        <h1>Правила перевозки в Вертикаль</h1>
+        <h1>-</h1>
+        <h2>{{ Article.CompanyPolicy|safe }}</h2>
+        <br><br><br>
+      </div>
+      <div class="HelpTextToSupport">
+        <h1>Правила обращения в Техническую Поддержку</h1>
+        <h1>-</h1>
+        <h2>{{ Article.HelpTextToSupport|safe }}</h2>
+      </div>
+    </div>
 {% endblock %}
