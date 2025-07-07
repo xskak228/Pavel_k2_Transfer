@@ -2,6 +2,7 @@
 
 {% block content %}
     {% load static %}
+    <title>Vertical - трансфер по КМВ</title>
     <style>
         body {
           overflow-x: hidden;
@@ -11,15 +12,133 @@
             color: white;
         }
 
+        .sales {
+            height: 450px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: -60px;
+        }
+        .sales .taxi-car {
+            width: 400px;
+            display: flex;
+            flex-direction: row;
+
+
+        }
+
+        .sales_info {
+            width: 400px;
+            line-height: 150%;
+        }
+
+        .sales .container {
+            position: absolute;
+            background:
+                linear-gradient(
+                  30deg,
+                  #F5A619 0%,
+                  #F36114 40%,
+                  #F12B11 100%
+                );
+            ;
+            color: white;
+            padding: 15px 40px 15px 40px;
+            margin: -160px -370px 0 0;
+            rotate: -30deg;
+            width: 500px;
+            cursor: pointer;
+
+            -webkit-mask-image: linear-gradient(to right, transparent, black 30%, black 70%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 30%, black 70%, transparent);
+
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+        }
+
+        .form-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 800px;
+            margin: 40px auto;
+        }
+
+        .separator {
+            padding-top: 180px;
+            z-index: 1;
+        }
+
+        .order-call {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-content: flex-start;
+        }
+
+        .order-call .with-phone {
+            padding-top: 20px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .order-call .with-social .socials{
+            padding-top: 15px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+
+        .order-call-buttons {
+            width: 70px;
+        }
+
+        /* Форма без overflow, чтобы фон не обрезался */
         form {
+            position: relative;
+            z-index: 2;
             color: white;
             background-color: rgba(162, 162, 162, 0.66);
             padding: 30px;
             border-radius: 30px;
-            max-width: 500px;
-            margin: 20px auto;
+            width: 300px;
+            max-height: 400px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+
+        /* Фоновое изображение — выступает за границы формы */
+        .form-wrapper .bg-image-form {
+            position: absolute;
+            top: -20px;
+            left: -130px;
+            width: 1000px;
+            height: 420px;
+            object-fit: cover;
+            opacity: 0.3;
+            filter: blur(5px);
+            border-radius: 40px;
+            z-index: 0;
+        }
+
+        /* Виньетка поверх изображения */
+        .form-wrapper .vignette-overlay-form {
+
+            position: absolute;
+            top: -30px;
+            left: -135px;
+            width: 1100px;
+            height: 440px;
+            border-radius: 40px;
+            z-index: 1;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0) 10%, rgba(0,0,0,0.9) 70%);
+        }
+
         .name_form {
             color: white;
             margin: -10px 0 20px 0;
@@ -38,7 +157,7 @@
             color: #6b6b6b;
             font-size: 16px;
         }
-        form button {
+        form button, .order-call-button {
             background:
                 linear-gradient(
                   30deg,
@@ -54,6 +173,65 @@
             border-radius: 10px;
             font-size: 18px;
         }
+
+        .advantages {
+          display: flex;
+          flex-direction: column;
+            align-items: center;
+          gap: 40px;
+          padding: 20px;
+            margin-top: 30px;
+        }
+
+        .advantage-row {
+          display: flex;
+          align-items: center;
+          gap: 30px;
+        }
+
+        .advantage-row.reverse {
+          flex-direction: row-reverse;
+        }
+
+        .adv-image {
+          width: 300px;
+          height: auto;
+          border-radius: 12px;
+          object-fit: cover;
+          flex-shrink: 0;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .adv-text {
+          max-width: 600px;
+        }
+
+        .adv-text h3 {
+          margin: 0 0 10px;
+          font-size: 22px;
+        }
+
+        .adv-text p {
+          margin: 0;
+          font-size: 16px;
+          line-height: 1.5;
+        }
+
+        {#/* Адаптив для мобилок */#}
+        {#@media (max-width: 768px) {#}
+        {#  .advantage-row,#}
+        {#  .advantage-row.reverse {#}
+        {#    flex-direction: column;#}
+        {#    text-align: center;#}
+        {#  }#}
+        {##}
+        {#  .adv-image {#}
+        {#    width: 100%;#}
+        {#    max-width: 300px;#}
+        {#  }#}
+        {#}#}
+
+
         .route{
             padding: 20px;
             width: 180px;
@@ -68,7 +246,7 @@
             text-decoration: none;
             margin: 0 15px;
         }
-        .bid {
+        .forms {
             display: flex;
 
         }
@@ -76,8 +254,8 @@
             margin: 40px 0;
             font-size: 28px;
             font-weight: bold;
-            max-width: 400px;
-            margin-left: 100px;
+            max-width: 500px;
+            margin-left: 70px;
             margin-right: auto;
 
             text-align: left;
@@ -322,6 +500,68 @@
             width: 40px;
         }
 
+        .photos {
+            margin-top: 100px;
+            margin-bottom: 20px;
+        }
+
+        .photos .name {
+            padding-bottom: 20px;
+        }
+
+        .photos img {
+            width: 350px;
+            padding: 10px;
+        }
+
+
+
+        .instruction {
+            margin-left: -40px;
+            width: 1200px;
+          display: flex;
+          flex-direction: column;
+            align-items: center;
+          gap: 40px;
+          padding: 10px;
+            margin-top: 30px;
+        }
+
+
+        .instruction-row {
+          display: flex;
+          align-items: center;
+          gap: 30px;
+        }
+
+        .instruction-row.reverse {
+          flex-direction: row-reverse;
+        }
+
+        .instr-image {
+          width: 500px;
+          height: auto;
+          border-radius: 12px;
+          object-fit: cover;
+          flex-shrink: 0;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .instr-text {
+          max-width: 600px;
+        }
+
+        .instr-text h3 {
+          margin: 0 0 10px;
+          font-size: 22px;
+        }
+
+        .instr-text p {
+          margin: 0;
+          font-size: 16px;
+          line-height: 1.5;
+        }
+
     </style>
 
     <script>
@@ -347,33 +587,117 @@
         });
     </script>
 
-    <div class="bid">
-        <div class="slogan"><br>Мы помогаем вам быстро, удобно и безопасно добираться из одного города в другой. Путешествуйте с комфортом и доверием!</div>
 
-        <form action="" method="POST">
-            {% csrf_token %}
-            <div class="name_form">
-                <h2>Заполнить заявку</h2>
-            </div>
-            <label for="from_location"></label><input type="text" id="from_location" name="from_location" required placeholder="Откуда">
-            <label for="to_location"></label><input type="text" id="to_location" name="to_location" required placeholder="Куда">
-            <label for="num_people"></label><input type="number" id="num_people" name="num_people" min="1" max="8" required placeholder="Кол-во человек">
-            <button type="submit">Далее</button>
-            {% if error_message %}
-                <div style="color: red; font-weight: bold;">
-                    {{ error_message }}
+    <div class="sales">
+        <div class="sales_info">
+            <h2 style="padding-bottom: 30px">Условия скидки:</h2>
+            <ul>
+                <li><p>Скидка 10% при заказе онлайн через Сайт</p></li>
+                <li><p>Акция не действует с 23:00 до 7:00 по МСК</p></li>
+                <li><p>Действует при предварительном заказе</p></li>
+                <li><p>Акция не действует на тариф "Эконом"</p></li>
+            </ul>
+            <h2 style="padding-top: 30px"><u>БРОНИРУЙТЕ ЗАРАНЕЕ!!!</u></h2>
+            <h6 style="padding-top: 10px"><a href="#instruction">>> Инструкция по бронированию <<</a></h6>
+
+
+
+        </div>
+        <div class="container">
+            <h2>!!! Скидка на поездку 10% !!!</h2>
+            <h6>При заказе такси Онлайн</h6>
+        </div>
+        <img src="{% static 'image/car-taxi.png' %}" alt="Такси" class="taxi-car">
+    </div>
+
+    <div class="forms">
+{#        <div class="slogan"><br>Мы помогаем вам быстро, удобно и безопасно добираться из Аэропорта города Минеральные Воды в другой населенный пункт. Путешествуйте с комфортом и доверием!</div>#}
+{#        <div class="slogan"><br>Трансфер из Аэропорта <br> г. Минеральные Воды. <br> Будьте уверены в комфорте и безопасности!</div>#}
+        <div class="form-wrapper">
+            <img src="{% static 'image/orange-car-2.jpg' %}" alt="Фоновое изображение" class="bg-image-form">
+            <div class="vignette-overlay-form"></div>
+
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="name_form">
+                    <h2>Заказать Онлайн!</h2>
                 </div>
-            {% endif %}
-        </form>
+{#                <label for="from_location"></label><input type="text" id="from_location" name="from_location" required placeholder="Откуда" value="Аэропорт г. Минеральные Воды">#}
+                <h6 style="padding-bottom: 5px">* Трансфер осуществляется из <br> Аэропорта г. Минеральные Воды *</h6>
+                <label for="to_location"></label><input type="text" id="to_location" name="to_location" required placeholder="Куда">
+                <label for="num_people"></label><input type="number" id="num_people" name="num_people" min="1" max="8" required placeholder="Кол-во человек">
+                <button type="submit">Далее</button>
+                <h6 style="padding-top: 10px"><a href="#instruction">>> Инструкция по бронированию <<</a></h6>
+                {% if error_message %}
+                    <div style="color: red; font-weight: bold;">
+                        {{ error_message }}
+                    </div>
+                {% endif %}
+            </form>
+            <div class="separator"><h2>или</h2></div>
+            <form class="order-call">
+                <div class="with-phone">
+                    <h2>Позвонить нам!</h2>
+                    <a class="order-call-button" href="tel:{{ MainInfo.Company_Phone_Number }}">{{ MainInfo.Company_Phone_Number }}</a>
+                </div>
+                <div class="with-social">
+                    <h2>Написать нам!</h2>
+                    <div class="socials">
+                        <a href="{{ MainInfo.Url_Telegram }}"><img class="order-call-buttons" id="icon-telegram" src="{% static 'image\icon-telegram.png' %}" alt="Telegram"></a>
+                        <a href="{{ MainInfo.Url_WhatsApp }}"><img class="order-call-buttons" id="icon-whatsapp" src="{% static 'image\icon-whatsapp.png' %}" alt="WhatsApp"></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="advantages">
+        <div class="name">
+                <h1>Наши преимущества!</h1>
+            </div>
+          <div class="advantage-row">
+            <img src="{% static 'image/taksi-v-aeroporty.jpg' %}" alt="Фото 1" class="adv-image">
+            <div class="adv-text">
+              <h3>Трансфер подается заранее</h3>
+              <p>Перевозчик встречает вас так близко к зоне прилета, насколько позволяют правила. По времени тоже все прекрасно - встречающий будет на месте, в указанное время. Можно вызвать местное такси в аэропорт дешево, но придется ждать машину, искать водителя, и времени уйдет на 10–15 минут больше, чем у НАС.</p>
+            </div>
+          </div>
+
+          <div class="advantage-row">
+            <div class="adv-text">
+              <h3>Можно не разговаривать с водителем</h3>
+              <p>Все о поездке известно заранее, поэтому, если вы не знаете язык или просто не в настроении, можете не говорить почти ни слова. Встреча с табличкой "VERTICAL" или "ВЕРТИКАЛЬ", поможет найтись на месте, а остальное зафиксировано в форме. С обычным местным таксистом, возможно, придется спорить о том, сколько стоит такси из аэропорта — на незнакомом языке можно договориться и в два раза дороже.</p>
+            </div>
+            <img src="{% static 'image/za-rulem.jpg' %}" alt="Фото 2" class="adv-image">
+          </div>
+
+          <div class="advantage-row">
+            <img src="{% static 'image/kreslo.jpg' %}" alt="Фото 3" class="adv-image">
+            <div class="adv-text">
+              <h3>Если нужно, в авто будет детское кресло</h3>
+              <p>При заказе в Вертикаль достаточно выбрать, нужно ли вам детское кресло. Водитель приедет на машине, укомплектованной для перевозки детей. Если на месте пытаться заказать такси в аэропорт и просить машину с детским креслам, приходится ждать не меньше 15 минут, пока оператор ищет варианты, а может и не найти.</p>
+            </div>
+          </div>
+
+          <div class="advantage-row">
+            <div class="adv-text">
+              <h3>Круглосуточная поддержка и бронирование 24/7</h3>
+              <p>Заказ можно оформить за одну минуту на сайте. Если же вам удобнее позвонить, то просто так и сделайте, на сайте простая навигация где легко и удобно найти Номер телефона, WhatsApp и Телеграм. Так же на сайте предусмотрена поддержка 24/7, при возникновении любого вопроса сразу же обращайтесь!</p>
+            </div>
+            <img src="{% static 'image/tp.jpg' %}" alt="Фото 4" class="adv-image">
+          </div>
     </div>
 
     <div class="quick-routes">
         <div class="name">
-            <h1>Популярные направления</h1>
+            <h1>Популярные направления из г. Минеральные Воды</h1>
         </div>
 
+{#        <img src="{% static 'image/car-window.jpg' %}" alt="Фоновое изображение" class="bg-image-qr">#}
+{#        <div class="vignette-overlay-qr"></div>#}
+
         <div class="route_link">
-            <a class="route" href="/booking/Москва---Санкт-Петербург/">
+            <a class="route" href="/booking/Минеральные_Воды---Санкт-Петербург/">
                 <div class="city city-left">
                     <img src="{% static 'image\sities\moscow.jpg' %}" alt="Москва">
                 </div>
@@ -397,7 +721,7 @@
         </div>
 
         <div class="route_link">
-            <a class="route" href="/booking/Краснодар---Нижний_Новгород/">
+            <a class="route" href="/booking/Минеральные_Воды---Нижний_Новгород/">
                 <div class="city city-left">
                     <img src="{% static 'image\sities\krasnodar.jpg' %}" alt="Краснодар">
                 </div>
@@ -409,7 +733,7 @@
         </div>
 
         <div class="route_link">
-            <a class="route" href="/booking/Ставрополь---Ростов-на-Дону/">
+            <a class="route" href="/booking/Минеральные_Воды---Ростов-на-Дону/">
                 <div class="city city-left">
                     <img src="{% static 'image\sities\stavropol.jpg' %}" alt="Краснодар">
                 </div>
@@ -424,7 +748,7 @@
 
     <div class="tariffs">
         <div class="name">
-            <h1>Тарифы</h1>
+            <h1>Наши Тарифы</h1>
         </div>
         <div class="carousel">
               <div class="carousel-track" id="track">
@@ -473,7 +797,77 @@
 
     </div>
 
-    <div class="reviews">
+    <div class="photos">
+        <div class="name">
+            <h1>Наш автопарк</h1>
+        </div>
+        <div class="p_row">
+            <div style="margin-right: 30px" class="p_col">
+                <img src="{% static 'image/parking/6.jpg' %}" alt="">
+                <img src="{% static 'image/parking/4.jpg' %}" alt="">
+                <img src="{% static 'image/parking/8.jpg' %}" alt="">
+            </div>
+            <div style="margin-right: -50px" class="p_col">
+                <img src="{% static 'image/parking/1.jpg' %}" alt="">
+                <img src="{% static 'image/parking/5.webp' %}" alt="">
+                <img style="height: 267px;" src="{% static 'image/parking/2.jpg' %}" alt="">
+            </div>
+            <div style="margin-right: 30px" class="p_col">
+                <img src="{% static 'image/parking/7.jpg' %}" alt="">
+                <img src="{% static 'image/parking/9.jpg' %}" alt="">
+                <img src="{% static 'image/parking/110.jpg' %}" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="instruction" id="instruction">
+        <div class="name">
+            <h1>Инструкция по бронированию трансфера</h1>
+        </div>
+        <div class="instruction-row">
+            <div class="instr-text"><h3>1) </h3></div>
+            <img src="{% static 'image/instruction_1.png' %}" alt="Фото 1" class="instr-image">
+            <div class="instr-text">
+              <h3>Выбор типа бронирования</h3>
+              <p>
+                  Выберите как вам удобно забронировать трансфер. Например, можно позвонить или написать на прямую, достаточно нажать на кнопку с номером телефона или же на иконку Мессенджеров.
+                  <br>
+                  Есть другой вариант, более удобный - Через встроенную форму бронирования! В ней встроен калькулятор по расстоянию и другим параметрам, смело заполняйте поле "Куда" и "Количество человек" и жмите "Далее".
+                  Будьте внимательны, в данный момент трансфер Вертикаль осуществляет перевозку только из Аэропорта г. Минеральные Воды!
+              </p>
+            </div>
+        </div>
+
+        <div class="instruction-row">
+            <div class="instr-text"><h3>2) </h3></div>
+            <img style="width: 350px" src="{% static 'image/instruction_2.png' %}" alt="Фото 2" class="instr-image">
+            <div class="instr-text">
+                <h3>Заполните форму, нам нужно больше данных ;)</h3>
+                <p>
+                    Заполните все поля: Имя, Номер, дату и тд. Укажите желаемый тариф, дополните все это комментарием с пожеланиями или другой информацией.
+                    А так же поставьте галочку если будите с ребенком, трансфер будет подан с детским креслом. И если собираетесь путешествовать с домашним животным, то также ставьте галочку, водитель будет готов к животным(В таком случае вы должны быть со своей переноской, см.
+                    <u><a href="{% url 'rules' %}">Правила Сервиса</a></u>)
+                </p>
+            </div>
+            <img style="width: 350px" src="{% static 'image/instruction_2_1.png' %}" alt="Фото 2" class="instr-image">
+        </div>
+
+        <div class="instruction-row">
+            <div class="instr-text"><h3>3) </h3></div>
+            <img style="width: 400px" src="{% static 'image/instruction_3.png' %}" alt="Фото 3" class="instr-image">
+            <div class="instr-text">
+              <h3>Ознакомьтесь с итоговой ценой</h3>
+              <p>
+                  Ознакомьтесь с ценой, все ли Вас устраивает. Так же можете наблюдать за скидкой, она работает в определенное время заказа, см. условия на
+                  <u><a href="{% url 'index' %}">главной странице</a></u>.
+                  После чего прочитайте политику конфиденциальности и правила перевозки и нажмите галочки, что все прочитано!
+                  Как только вы подтвердите, данная заявка отправиться оператору и он с вами свяжется для подтверждения бронирования, а также для получения дополнительной информации!
+              </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="reviews" id="reviews-tag">
         <div class="name">
             <h1>Ваши Отзывы</h1>
         </div>

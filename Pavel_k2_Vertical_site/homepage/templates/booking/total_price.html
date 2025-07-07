@@ -94,17 +94,22 @@
         <div class="checkboxes">
             <label>
                 <input type="checkbox" required>
-                <span>Ознакомился с <a class="rules-link" href="/rules" target="_blank">правилами перевозки</a></span>
+                <span>Ознакомился с <a class="rules-link" href="/rules/" target="_blank">правилами перевозки</a></span>
             </label>
             <label>
                 <input type="checkbox" required>
-                <span>Ознакомился с <a class="rules-link" href="/privacy" target="_blank">политикой конфиденциальности</a> и даю согласие на <a class="rules-link" href="/personal-data" target="_blank">обработку персональных данных</a></span>
+                <span>Ознакомился с <a class="rules-link" href="/rules/" target="_blank">политикой конфиденциальности</a> и даю согласие на <a class="rules-link" href="/rules/" target="_blank">обработку персональных данных</a></span>
             </label>
         </div>
 
         <div>
-            <h3>Приблизительная цена</h3>
-            <div class="price">{{ price }} руб.</div>
+            <h3>Итоговая цена</h3>
+            {% if sale_price != 0 %}
+                <div class="price"><s>{{ price }} руб.</s></div>
+                <div class="price">{{ sale_price }} руб.</div>
+            {% else %}
+                <div class="price">{{ price }} руб.</div>
+            {% endif %}
         </div>
 
         <button type="submit">Отправить заявку</button>

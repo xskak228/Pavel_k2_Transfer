@@ -26,6 +26,7 @@ class Booking(models.Model):
     child_seat = models.BooleanField(default=False, help_text="", verbose_name="Детское кресло")
     pet = models.BooleanField(default=False, help_text="", verbose_name="Животное")
     price = models.PositiveIntegerField( help_text="Предварительаня цена, НЕ ИЗМЕНЯТЬ!", verbose_name="Цена")
+    sale_price = models.PositiveIntegerField( help_text="Предварительаня цена со Скидкой, НЕ ИЗМЕНЯТЬ!", verbose_name="Цена со скидкой")
     comment = models.CharField(max_length=1000, help_text="Комментарий от клиента", verbose_name="Комментарий")
     updated_at = models.DateTimeField(auto_now=True, help_text="Время изменения статуса с ЖдемПодтверждения на ЗаявкаОтправленаБоту", verbose_name="Статус изменен")
     status = models.CharField(max_length=100, help_text="Статус заявки", verbose_name="Статус")

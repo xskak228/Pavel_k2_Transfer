@@ -2,26 +2,43 @@
 
 {% block content %}
     {% load static %}
+    <title>Vertical - Правила, Политика компании</title>
+  <style>
+    .rules {
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .rules h2 {
+      word-wrap: break-word;
+    }
+  </style>
 
-  <style></style>
 
     <div class="rules">
-      <div class="PrivacyPolicy">
-        <h1>Политика конфиденциальности <br> и обработки персональныйх данных</h1>
+      <div class="PrivacyPolicy" id="PrivacyPolicy">
+        <h1>Политика конфиденциальности <br> и обработки персональных данных</h1>
         <h1>-</h1>
-        <h2>{{ Article.PrivacyPolicy|safe }}</h2>
+        <div class="editor-content">
+          {{ Article.PrivacyPolicy|safe }}
+        </div>
         <br><br><br>
       </div>
-      <div class="CompanyPolicy">
+      <div class="CompanyPolicy" id="CompanyPolicy">
         <h1>Правила перевозки в Вертикаль</h1>
         <h1>-</h1>
-        <h2>{{ Article.CompanyPolicy|safe }}</h2>
+        <div class="editor-content">
+          {{ Article.CompanyPolicy|safe }}
+        </div>
         <br><br><br>
       </div>
-      <div class="HelpTextToSupport">
-        <h1>Правила обращения в Техническую Поддержку</h1>
+      <div class="HelpTextToSupport" id="HelpTextToSupport">
+        <h1>Инструкция обращения в Техническую Поддержку</h1>
         <h1>-</h1>
-        <h2>{{ Article.HelpTextToSupport|safe }}</h2>
+        <div class="editor-content">
+          {{ Article.HelpTextToSupport|safe }}
+        </div>
       </div>
     </div>
+
 {% endblock %}

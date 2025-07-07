@@ -113,6 +113,33 @@ USE_I18N = True
 
 USE_TZ = True
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline', 'Strike'],
+            ['NumberedList', 'BulletedList'],
+            ['Outdent', 'Indent', 'Blockquote'],
+            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['Table', 'HorizontalRule'],
+            ['RemoveFormat', 'Source'],
+            ['Font', 'FontSize'],
+            ['TextColor', 'BGColor'],
+        ],
+        'height': 300,
+        'width': '100%',
+        'extraPlugins': ','.join([
+            'justify',
+            'colorbutton',
+            'font',
+            'div',
+            'table',
+        ]),
+    }
+}
+
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/

@@ -2,7 +2,7 @@
 
 {% block content %}
     {% load static %}
-
+    <title>Vertical - Бронирование поездки</title>
     <style>
 
         .nav-buttons a {
@@ -60,13 +60,11 @@
         .checkbox-group {
             grid-column: span 2;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
             align-items: center;
             padding: 10px;
         }
         .checkbox-group label {
-            display: flex;
-            align-items: center;
             font-size: 18px;
         }
         .checkbox-group input {
@@ -79,6 +77,11 @@
         }
         .comment-input {
             height: 60px; /* или сколько нужно */
+        }
+        .checkbox-group .element {
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
         }
     </style>
 
@@ -106,37 +109,63 @@
     </script>
 
     <div class="name_form">
-        <h2>Расскажите подробнее о ваших пожеланиях</h2>
+        <h2>Нам нужно больше данных ;)</h2>
     </div>
 <form action="" method="POST">
     {% csrf_token %}
 
-    <input type="text" name="name" required placeholder="Ваше имя">
-    <input type="tel" name="phone" required oninput="formatPhone(this)" placeholder="Ваш номер">
-    <input type="date" name="date" id="date" min="{{ tomorrow }}" required>
-    <input type="time" name="time" required>
-    <input type="text" id="from_location" name="from_location" value="{{ from_location }}" required placeholder="Откуда">
-    <input type="text" id="to_location" name="to_location" value="{{ to_location }}" required placeholder="Куда">
-    <input type="number" id="num_people" name="num_people" min="1" max="8" value="{{ num_people }}" required placeholder="Количество человек">
-    <input type="number" name="luggage" min="0" max="16" required placeholder="Количество багажа">
+    <div class="">
+        <input type="text" name="name" required placeholder="Ваше имя">
+        <p>Как Вас зовут?</p>
+    </div>
+
+    <div class="">
+        <input type="tel" name="phone" required oninput="formatPhone(this)" placeholder="Ваш номер">
+        <p>Укажите Ваш номер телефона.</p>
+    </div>
+    <div class="">
+        <input type="date" name="date" id="date" min="{{ date_now }}" required>
+        <p>Когда Вас забрать? (по МСК)</p>
+    </div>
+    <div class="">
+        <input type="time" name="time" required>
+        <p>Во сколько Вас забрать? (по МСК)</p>
+    </div>
+    <div class="">
+        <input type="text" id="from_location" name="from_location" value="{{ from_location }}" required placeholder="Откуда" disabled>
+        <p>Изменит нельзя ;)</p>
+    </div>
+    <div class="">
+        <input type="text" id="to_location" name="to_location" value="{{ to_location }}" required placeholder="Куда">
+        <p>Куда Вы хотите поехать?</p>
+    </div>
+    <div class="">
+        <input type="number" id="num_people" name="num_people" min="1" max="8" value="{{ num_people }}" required placeholder="Количество человек">
+        <p>Сколько Вас будет?</p>
+    </div>
+    <div class="">
+        <input type="number" name="luggage" min="0" max="16" required placeholder="Количество багажа">
+        <p>Сколько будет багажа?</p>
+    </div>
 
     <select name="tariff" class="full-width" required>
         <option disabled selected value="">Выберите тариф</option>
-        <option>Эконом</option>
-        <option>Стандарт</option>
-        <option>Комфорт</option>
-        <option>Минивэн</option>
-        <option>Бизнес</option>
+        <option>Эконом -> {{ pricing.tariff_price_econom }} руб/км, 3 пассажира</option>
+        <option>Стандарт -> {{ pricing.tariff_price_standart }} руб/км, 3 пассажира</option>
+        <option>Комфорт -> {{ pricing.tariff_price_comfort }} руб/км, 3 пассажира</option>
+        <option>Минивэн -> {{ pricing.tariff_price_miniven }} руб/км, 8 пассажиров</option>
+        <option>Бизнес -> {{ pricing.tariff_price_biznes }} руб/км, 3 пассажира</option>
     </select>
 
     <input type="text" name="comment" class="full-width comment-input" placeholder="Комментарий (необязательно)">
 
 
     <div class="checkbox-group">
-        <label><input type="checkbox" name="child_seat" value="Да"> Детское кресло</label>
-        <label><input type="checkbox" name="pet" value="Да"> Животное</label>
+        <div class="element"><input type="checkbox" name="child_seat" value="Да"><p>Детское кресло</p></div>
+        <div class="element"><input type="checkbox" name="pet" value="Да"> Перевозка Животного</div>
     </div>
     <button type="submit" class="full-width">Далее</button>
+    <h6 style="padding-top: 10px"><a href="{% url 'index' %}#instruction">>> Инструкция по бронированию <<</a></h6>
 
     {% if error_message %}
         <div style="color: red; font-weight: bold;">
