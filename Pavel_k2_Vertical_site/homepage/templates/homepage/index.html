@@ -252,16 +252,24 @@
         }
         .slogan {
             margin: 40px 0;
-            font-size: 28px;
-            font-weight: bold;
-            max-width: 500px;
+            font-size: 25px;
+            {#font-weight: bold;#}
             margin-left: 70px;
             margin-right: auto;
-
-            text-align: left;
-            line-height: 40px;
-            text-indent: 10px;
         }
+
+        #slogan-text {
+            border-radius:0 0 20px 20px;
+            background:
+                linear-gradient(
+                  30deg,
+                  #F5A619 0%,
+                  #F36114 40%,
+                  #F12B11 100%
+                );
+            ;
+        }
+
         .quick-routes {
             padding: 100px 0 0 0;
 
@@ -461,8 +469,8 @@
         .reviews-item {
             position: relative; /* нужно для позиционирования звёзд */
             padding: 20px;
-            width: 250px;
-            height: 350px;
+            width: 300px;
+            height: 450px;
             background-color: rgba(162, 162, 162, 0.66);
             border-radius: 30px;
             text-align: center;
@@ -562,6 +570,22 @@
           line-height: 1.5;
         }
 
+        #car_window {
+            position: absolute;
+            z-index: -3;
+            object-fit: cover;
+            opacity: 0.2;
+            filter: blur(5px);
+            top: 400px;
+            padding-left: 60px;
+            width: 600px;
+        }
+
+    }
+
+
+
+
     </style>
 
     <script>
@@ -587,6 +611,10 @@
         });
     </script>
 
+    <img class="background_image" id="car_window" src="{% static 'image\car-window.jpg' %}" alt="">
+    <div id="car_window_v"></div>
+
+    <div class="slogan"><h1>Междугороднее такси</h1><h1 id="slogan-text">Вертикаль</h1></div>
 
     <div class="sales">
         <div class="sales_info">
@@ -697,52 +725,41 @@
 {#        <div class="vignette-overlay-qr"></div>#}
 
         <div class="route_link">
-            <a class="route" href="/booking/Минеральные_Воды---Санкт-Петербург/">
+            <a class="route" href="/booking/Минеральные_Воды---Пятигорск/">
                 <div class="city city-left">
-                    <img src="{% static 'image\sities\moscow.jpg' %}" alt="Москва">
+                    <img src="{% static 'image\sities\pyatigorsk.jpeg' %}" alt="Пятигорск">
                 </div>
                 <div class="city city-right">
-                    <img src="{% static 'image\sities\piter.jpg' %}" alt="Санкт-Петербург">
+                    <img src="{% static 'image\sities\pyatigorsk_2.jpeg' %}" alt="Пятигорск">
                 </div>
-                <div class="route-title">Москва - Санкт-Петербург</div>
+                <div class="route-title">Пятигорск</div>
             </a>
         </div>
 
         <div class="route_link">
-            <a class="route" href="/booking/Минеральные_Воды---Сочи/">
+            <a class="route" href="/booking/Минеральные_Воды---Кисловодск/">
                 <div class="city city-left">
-                    <img src="{% static 'image\sities\minvodi.jpg' %}" alt="Минеральные Воды">
+                    <img src="{% static 'image\sities\kislovodsk_1.jpg' %}" alt="Кисловодск">
                 </div>
                 <div class="city city-right">
-                    <img src="{% static 'image\sities\sochi.jpg' %}" alt="Сочи">
+                    <img src="{% static 'image\sities\kislovodsk_2.jpg' %}" alt="Кисловодск">
                 </div>
-                <div class="route-title">Минеральные Воды - Сочи</div>
+                <div class="route-title">Кисловодск</div>
             </a>
         </div>
 
         <div class="route_link">
-            <a class="route" href="/booking/Минеральные_Воды---Нижний_Новгород/">
+            <a class="route" href="/booking/Минеральные_Воды---Невинномысск/">
                 <div class="city city-left">
-                    <img src="{% static 'image\sities\krasnodar.jpg' %}" alt="Краснодар">
+                    <img src="{% static 'image\sities\nevinomysk_1.jpg' %}" alt="Невинномысск">
                 </div>
                 <div class="city city-right">
-                    <img src="{% static 'image\sities\novgorod.jpg' %}" alt="Краснодар">
+                    <img src="{% static 'image\sities\nevinomysk_2.jpg' %}" alt="Невинномысск">
                 </div>
-                <div class="route-title">Краснодар - Нижний Новгород</div>
+                <div class="route-title">Невинномысск</div>
            </a>
         </div>
 
-        <div class="route_link">
-            <a class="route" href="/booking/Минеральные_Воды---Ростов-на-Дону/">
-                <div class="city city-left">
-                    <img src="{% static 'image\sities\stavropol.jpg' %}" alt="Краснодар">
-                </div>
-                <div class="city city-right">
-                    <img src="{% static 'image\sities\rostov.jpg' %}" alt="Краснодар">
-                </div>
-                <div class="route-title">Ставрополь - Ростов на Дону</div>
-           </a>
-        </div>
 
     </div>
 
@@ -876,7 +893,11 @@
                 <div class="review-author"><h2>Генадий М.</h2></div>
                 <p>___________________</p>
                 <div class="review">
-                    <p>Отличный сервис! Пользуюсь уже не в первый раз, всегда вовремя и удобно. Водители профессионалы, сервис на высоте.</p>
+                    <p>
+                        Пользуюсь Вертикаль уже несколько раз, и каждый раз — сплошное удовольствие!
+                        Водители приезжают вовремя, машины чистые, кондиционер работает (что важно в жару).
+                        Цены адекватные, особенно если бронировать заранее через сайт. Рекомендую!
+                    </p>
                 </div>
                 <div class="stars">★★★★★</div>
                 <div class="ocenka"><img id="icon-review" src="{% static 'image\review.png' %}" alt="Telegram">5/5</div>
@@ -886,18 +907,29 @@
                 <div class="review-author"><h2>Дмитрий Т.</h2></div>
                 <p>___________________</p>
                 <div class="review">
-                    <p>Очень удобно и быстро. Давно искал надежный способ добраться до нужного города, и этот сервис полностью оправдал мои ожидания.</p>
+                    <p>
+                        Vertical Taxi — мой фаворит среди междугородних перевозок!
+                        Ездил по работе в ваш регион, и всё прошло просто идеально: водитель вежливый, не гнал,
+                        как у некоторых, да и сама машина, Kia Rio, была как новая.
+                        Буду обращаться ещё и советовать друзьям!
+                    </p>
                 </div>
-                <div class="stars">★★★★☆</div>
+                <div class="stars">★★★★★</div>
                 <div class="ocenka"><img id="icon-review" src="{% static 'image\review.png' %}" alt="Telegram">4/5</div>
             </div>
             <div class="reviews-item">
                 <div class="review-author"><h2>Павел В.</h2></div>
                 <p>___________________</p>
                 <div class="review">
-                    <p>Рекомендую всем! Дешево, надежно и комфортно. Не думал, что поездки могут быть такими удобными. Огромное спасибо!</p>
+                    <p>
+                        Нормальный сервис, без особых восторгов, но и без нареканий.
+                        Машина чистая, водитель не болтал лишнего, что мне нравится.
+                        Цены чуть выше, чем у частников, зато надёжнее.
+                        Минус — не всегда есть свободные авто в час пик, лучше бронировать заранее.
+                        В целом — хороший вариант.
+                    </p>
                 </div>
-                <div class="stars">★★★★★</div>
+                <div class="stars">★★★★☆</div>
                 <div class="ocenka"><img id="icon-review" src="{% static 'image\review.png' %}" alt="Telegram">5/5</div>
             </div>
         </div>

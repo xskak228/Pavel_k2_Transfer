@@ -28,12 +28,23 @@ api_key = MainSettings.objects.first().ApiKey_OpenRouteService
 client = openrouteservice.Client(key=api_key)
 
 
+def send_bot_tg():
+    print("___________________")
+    print("f -> send_bot_tg")
+    params = MainSettings.objects.first()
+    api_key_tg = params.ApiKey_TgBot
+    chat_id_tg = params.ChatID_Telegram
+    mess_tg = "Новая заявка, проверьте ее -> https://taxi-vertical.ru/admin/homepage/booking/"
+    http = f"https://api.telegram.org/bot{api_key_tg}/sendMessage?chat_id={chat_id_tg}&text={mess_tg}"
+    if not requests.get(http).status_code == 200:
+        print("E -> http cod no 200")
+
 # function to get coord in city
 def get_coordinates(city):
     print("___________________")
     print("f -> get_coordinates")
     city = city.replace("_", " ")
-    print("p -> city")
+    print("p -> city", city)
     result = client.pelias_search(city)
 
     if result and 'features' in result and result['features']:
@@ -244,6 +255,7 @@ def form(request, city_from, city_to):
             booking = Booking.objects.get(id=booking_id)
             booking.status = "ЗаявкаОтправленаБоту"
             booking.save()
+            send_bot_tg()
             request.session.flush()  # Очистить step/booking_id
             return redirect(index)  # Успешная заявка
 

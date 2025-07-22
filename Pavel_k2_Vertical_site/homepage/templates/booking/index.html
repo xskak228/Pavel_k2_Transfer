@@ -83,6 +83,52 @@
             justify-content: center;
             flex-direction: row;
         }
+
+        .instruction {
+            margin-left: -40px;
+            width: 1200px;
+          display: flex;
+          flex-direction: column;
+            align-items: center;
+          gap: 40px;
+          padding: 10px;
+            margin-top: 30px;
+        }
+
+
+        .instruction-row {
+          display: flex;
+          align-items: center;
+          gap: 30px;
+        }
+
+        .instruction-row.reverse {
+          flex-direction: row-reverse;
+        }
+
+        .instr-image {
+          width: 500px;
+          height: auto;
+          border-radius: 12px;
+          object-fit: cover;
+          flex-shrink: 0;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .instr-text {
+          max-width: 700px;
+        }
+
+        .instr-text h3 {
+          margin: 0 0 10px;
+          font-size: 22px;
+        }
+
+        .instr-text p {
+          margin: 0;
+          font-size: 16px;
+          line-height: 1.5;
+        }
     </style>
 
     <script>
@@ -165,7 +211,6 @@
         <div class="element"><input type="checkbox" name="pet" value="Да"> Перевозка Животного</div>
     </div>
     <button type="submit" class="full-width">Далее</button>
-    <h6 style="padding-top: 10px"><a href="{% url 'index' %}#instruction">>> Инструкция по бронированию <<</a></h6>
 
     {% if error_message %}
         <div style="color: red; font-weight: bold;">
@@ -173,5 +218,56 @@
         </div>
     {% endif %}
 </form>
+
+<div class="instruction" id="instruction">
+    <div class="name">
+        <h1>Инструкция по бронированию трансфера</h1>
+    </div>
+
+    <div class="instruction-row">
+        <div class="instr-text"><h3>1) </h3></div>
+        <img style="width: 350px" src="{% static 'image/instruction_2.png' %}" alt="Фото 2" class="instr-image">
+        <div class="instr-text">
+            <h3>Заполните форму, нам нужно больше данных ;)</h3>
+            <p>
+                Заполните все поля: Имя, Номер, дату и тд. Укажите желаемый тариф, дополните все это комментарием с пожеланиями или другой информацией.
+                А так же поставьте галочку если будите с ребенком, трансфер будет подан с детским креслом. И если собираетесь путешествовать с домашним животным, то также ставьте галочку, водитель будет готов к животным(В таком случае вы должны быть со своей переноской, см.
+                <u><a href="{% url 'rules' %}">Правила Сервиса</a></u>)
+            </p>
+        </div>
+        <img style="width: 350px" src="{% static 'image/instruction_2_1.png' %}" alt="Фото 2" class="instr-image">
+    </div>
+
+    <div class="instruction-row" style="max-width: 1200px">
+        <div class="instr-text"><h3>2) </h3></div>
+        <div class="instr-text">
+          <h3>Подробнее о пунктах</h3>
+          <ol>
+              <li>Имя - Укажите ваше имя по которому водитель сможет обратиться.</li>
+              <li>Номер телефона - Номер по которому с вами свяжется оператор или водитель.</li>
+              <li>Дата и время - Укажите дату и время когда водителю ожидать вас на месте.</li>
+              <li>Пункт назначения - Укажите населенный пункт до которого вам нужно доехать, точный адрес водитель спросит лично.</li>
+              <li>Количество человек - Точное кол-во персон для перевозки, учтите, что тарифы кроме "Минивэн" не предусмотрены на кол-во пассажиров больше 4.</li>
+              <li>Количество багажа - количество чемоданов, сумок, рюкзаков. Оператору будет проще подобрать машину для вас, если он будет знать кол-во багажа.</li>
+              <li>Тариф - Выберите желаемый тариф.</li>
+              <li>Комментарий - Расскажите подробнее о ваших пожеланиях.</li>
+          </ol>
+        </div>
+    </div>
+
+    <div class="instruction-row">
+        <div class="instr-text"><h3>3) </h3></div>
+        <img style="width: 400px" src="{% static 'image/instruction_3.png' %}" alt="Фото 3" class="instr-image">
+        <div class="instr-text">
+          <h3>Ознакомьтесь с итоговой ценой</h3>
+          <p>
+              Ознакомьтесь с ценой, все ли Вас устраивает. Так же можете наблюдать за скидкой, она работает в определенное время заказа, см. условия на
+              <u><a href="{% url 'index' %}">главной странице</a></u>.
+              После чего прочитайте политику конфиденциальности и правила перевозки и нажмите галочки, что все прочитано!
+              Как только вы подтвердите, данная заявка отправиться оператору и он с вами свяжется для подтверждения бронирования, а также для получения дополнительной информации!
+          </p>
+        </div>
+    </div>
+ </div>
 
 {% endblock %}
